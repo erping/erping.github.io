@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://yoursite.com/2015/12/08/hexo-your-blog/</loc>
+    <lastmod>2015-12-08T07:43:58.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2015/12/08/about/</loc>
+    <lastmod>2015-12-08T06:54:57.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/categories/index.html</loc>
+    <lastmod>2015-12-07T13:20:35.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/tags/index.html</loc>
+    <lastmod>2015-12-07T13:14:45.000Z</lastmod>
+  </url>
+  
+</urlset>
