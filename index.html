@@ -319,18 +319,17 @@
 <li>如果 x1 != x2, 则 f (x1) != f(x2);</li>
 <li>对于每一个 y, 能够找到唯一的一个 x 使得 f(x) = y;</li>
 </ul>
-<p>假设我们现在有了短地址，浏览器是如何找到原来的长地址的呢？当我们在浏览器输入<a href="http://goo.gl/XdWWYX时，DNS首先解析出goo.gl的IP地址，然后会向其发出HTTP" target="_blank" rel="external">http://goo.gl/XdWWYX时，DNS首先解析出goo.gl的IP地址，然后会向其发出HTTP</a> GET请求查询XdWWYX。这个时候goo.gl服务器会逆向解析出长URL erping.github.io 再返回浏览器一个HTTP 301 重定向到长URL，后面就跟访问普通网站一样了。</p>
+<p>假设我们现在有了短地址，浏览器是如何找到原来的长地址的呢？当我们在浏览器输入<a href="http://goo.gl/XdWWYX" target="_blank" rel="external">http://goo.gl/XdWWYX</a>时，DNS首先解析出goo.gl的IP地址，然后会向其发出HTTP GET请求查询XdWWYX。这个时候goo.gl服务器会逆向解析出长URL erping.github.io 再返回浏览器一个HTTP 301 重定向到长URL，后面就跟访问普通网站一样了。</p>
 <p>至此，短网址基本讲清楚了。如果想要了解具体用什么映射实现的请往下看。</p>
 <p>短URL长度一般6位，而每一位是由 [a - z, A - Z, 0 - 9] 总共 62 个字母组成的，所以6位的话，总共会有 62^6 ~= 568亿种组合，基本上够用了。</p>
-<p>短址的长度一般设为 6 位，而每一位是由 [a - z, A - Z, 0 - 9] 总共 62 个字母组成的，所以6位的话，总共会有 62^6 ~= 568亿种组合，基本上够用了。</p>
 <p>假设我们用数据库来保存长地址和短地址的映射，那么，在表 LongtoShortURL 中，我们会有三列：</p>
 <ol>
 <li>ID，int,  自动增长；</li>
-<li>LURL，varchar,  // 长URL；</li>
-<li>SURL, varchar,  // 短URL。</li>
+<li>LURL，varchar;  // 长URL；</li>
+<li>SURL, varchar; // 短URL。</li>
 </ol>
 <p>现在我们考虑通过如何长URL得到唯一的短URL。</p>
-<p>在讲具体算法以前，先提一个问题：10进制数和16进制数之间的转换是否满足刚刚提到的映射函数 f: X -&gt; Y中的两个条件？<br>答案： 是。</p>
+<p>在讲具体算法以前，先提一个问题：10进制数和16进制数之间的转换是否满足刚刚提到的映射函数 f: X -&gt; Y中的两个条件？答案： 是。</p>
 <p>本文的思路也是利用进制之间的转换。因为我们总共有 62 个字母，我们可以自创一种进制，叫做 62 进制。其规则如下：</p>
 <blockquote>
 <p>0  -&gt;  a<br>1  -&gt;  b<br>2  -&gt;  c<br>…..<br>61 -&gt;  9</p>
