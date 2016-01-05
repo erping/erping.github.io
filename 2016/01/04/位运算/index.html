@@ -65,7 +65,7 @@
 在计算机中数字是以二进制存储运算的，除了加减乘除等代数运算，与非等逻辑关系运算用二进制也十分方便。平时习惯了十进制的，思维难免有所局限，有些问题合理利用位运算性质常常能够简单快速的解决。下面我就介绍一下位运算的常用性质以及相关问题。
 1.判断奇偶性
 要想判断一个数的奇偶性，我们恐怕第一反应就是将其除以2然后看起余数。这样">
-<meta property="og:updated_time" content="2016-01-05T01:51:05.000Z">
+<meta property="og:updated_time" content="2016-01-05T01:52:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="位运算">
 <meta name="twitter:description" content="转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我喝咖啡
@@ -351,7 +351,13 @@
 <p>标题说的不太清楚，这个问题是有一个整型数组A，其中只有一个数出现了奇数次，其他的数都出现了偶数次，找到这个数，要求时间复杂度为O(N)，额外空间复杂度为O(1)。</p>
 <p>看到这个偶数次脑海里是不是马上想起了a⊕a=0，恭喜你，解决问题的关键就在这。因为数组里只有一个数出现了奇数次，我们把所有数迭代做异或，那么出现偶数次的数异或结果为0(有点像消消乐，把那些成对的消掉了)，最后的结果就是0异或那个出现奇数次的数，根据性质a⊕0=a,所以最终迭代结果就是那个数。示例代码如下</p>
 <p>  int findOdd(vector<int> A, int n)</int></p>
-<p>{<br>       int i;<br>       int odd=0;<br>       for(i=0;i&lt;n;i++)<br>           odd ^= A[i];  //a^a=0; a^0 = a<br>       return odd;<br>}</p>
+<p>{</p>
+<pre><code><span class="keyword">int</span> i;
+<span class="keyword">int</span> odd=<span class="number">0</span>;
+<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;n;i++)
+    odd ^= A[i];  <span class="comment">//a^a=0; a^0 = a</span>
+<span class="keyword">return</span> odd;
+</code></pre><p>}</p>
 <p>位运算用途广泛，除了上面几个方面还常用于清零，提取某些位，移位等等，因为直接操作位，一般速度很快，所以搜索引擎里也能看到其身影。下次遇到问题不妨先想一下位运算能不能解决呢。</p>
 </span>
       
