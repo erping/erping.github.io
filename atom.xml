@@ -4,7 +4,7 @@
   <subtitle><![CDATA[成长之路]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2016-01-04T13:31:22.000Z</updated>
+  <updated>2016-01-05T01:44:32.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,13 +19,12 @@
     <link href="http://yoursite.com/2016/01/04/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
     <id>http://yoursite.com/2016/01/04/位运算/</id>
     <published>2016-01-04T13:28:29.000Z</published>
-    <updated>2016-01-04T13:31:22.000Z</updated>
+    <updated>2016-01-05T01:44:32.000Z</updated>
     <content type="html"><![CDATA[<p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="external">喝咖啡</a></strong></p>
 <p>在计算机中数字是以二进制存储运算的，除了加减乘除等代数运算，与非等逻辑关系运算用二进制也十分方便。平时习惯了十进制的，思维难免有所局限，有些问题合理利用位运算性质常常能够简单快速的解决。下面我就介绍一下位运算的常用性质以及相关问题。</p>
 <p><strong>1.判断奇偶性</strong></p>
 <p>要想判断一个数的奇偶性，我们恐怕第一反应就是将其除以2然后看起余数。<br>这样肯定是可以的，但是这是不是最快的呢？既然问了这个问题，那答案显然就不是啦。计算机里的二进制数据做除法是很复杂的，所以我们得转换一下思路。奇数偶数在二进制里特点很明显，最后一位如果是1那显然就是奇数，如果是0那就是偶数。于是问题转化为判断最后一位是0是1，这用一个运算速度很快的&amp;（与）操作就能完成。示例代码如下</p>
-<p>  int isOdd(int x)</p>
-<p>{</p>
+<p>  int isOdd(int x)<br>{</p>
 <pre><code>int <span class="literal">a</span>=<span class="number">0</span>x01<span class="comment">;</span>
 
 <span class="keyword">return</span> (x&amp;<span class="literal">a</span>)<span class="comment">;</span>
@@ -52,14 +51,7 @@
 <p><strong>3.寻找奇数出现</strong></p>
 <p>标题说的不太清楚，这个问题是有一个整型数组A，其中只有一个数出现了奇数次，其他的数都出现了偶数次，找到这个数，要求时间复杂度为O(N)，额外空间复杂度为O(1)。</p>
 <p>看到这个偶数次脑海里是不是马上想起了a⊕a=0，恭喜你，解决问题的关键就在这。因为数组里只有一个数出现了奇数次，我们把所有数迭代做异或，那么出现偶数次的数异或结果为0，最后的结果就是0异或那个出现奇数次的数，根据性质a⊕0=a,所以最终迭代结果就是那个数。示例代码如下</p>
-<p>int findOdd(vector<int> A, int n)</int></p>
-<p> {</p>
-<pre><code><span class="keyword">int</span> i;
-<span class="keyword">int</span> odd=<span class="number">0</span>;
-<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;n;i++)
-    odd ^= A[i];  <span class="comment">//a^a=0; a^0 = a</span>
-<span class="keyword">return</span> odd;
-</code></pre><p> }</p>
+<p>int findOdd(vector<int> A, int n)<br>{<br>        int i;<br>        int odd=0;<br>        for(i=0;i&lt;n;i++)<br>            odd ^= A[i];  //a^a=0; a^0 = a<br>        return odd;<br>}</int></p>
 <p>位运算用途广泛，除了上面几个方面还常用于清零，提取某些位，移位等等，因为直接操作位，一般速度很快，所以搜索引擎里也能看到其身影。下次遇到问题不妨先想一下位运算能不能解决呢。</p>
 ]]></content>
     <summary type="html">
