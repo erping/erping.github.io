@@ -4,7 +4,7 @@
   <subtitle><![CDATA[成长之路]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2016-01-05T01:53:49.000Z</updated>
+  <updated>2016-03-30T03:20:42.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,92 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[linux常用命令]]></title>
+    <link href="http://yoursite.com/2016/01/30/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    <id>http://yoursite.com/2016/01/30/linux常用命令/</id>
+    <published>2016-01-30T03:06:24.000Z</published>
+    <updated>2016-03-30T03:20:42.000Z</updated>
+    <content type="html"><![CDATA[<p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="external">喝咖啡</a></strong></p>
+<p>自己电脑以前用的就是Ubuntu的，虽然不怎么方便，但是命令用的熟啊。后来重装了Windows，命令逐渐生疏，今天就总结一下，算是温故知新。</p>
+<p> <strong>帮助命令</strong></p>
+<p>$<strong>man</strong> <em>command</em></p>
+<p>查询命令<em>command</em>的说明文档</p>
+<p>$<strong>info</strong> <em>command</em></p>
+<p>更加详细的说明文档</p>
+<p>$<strong>whatis</strong> <em>command</em></p>
+<p>简要说明</p>
+<p>$<strong>which</strong> <em>command</em></p>
+<p><em>command</em>的binary文件所在路径</p>
+<p>$<strong>whereis</strong> <em>command</em></p>
+<p>在搜索路径中的所有<em>command</em></p>
+<p> <strong>用户</strong></p>
+<p>$<strong>finger</strong> <em>username</em></p>
+<p>显示用户<em>username</em>的信息</p>
+<p>$<strong>who</strong></p>
+<p>显示当前登录的用户</p>
+<p>$<strong>passwd</strong></p>
+<p>更改密码</p>
+<p> <strong>SHELL（BASH）</strong></p>
+<p>$<strong>history</strong></p>
+<p>显示当前shell下的命令历史</p>
+<p>$<strong>!num</strong></p>
+<p>!加在<em>history</em>后的数字即为执行那条命令</p>
+<p>$<strong>alias</strong></p>
+<p>显示所有的命令别名</p>
+<p>$<strong>alias new_command=’command’</strong></p>
+<p>将command用newcommand代替</p>
+<p>$<strong>expr 1 + 1</strong></p>
+<p>数学计算，注意运算符前后的空格不可缺少</p>
+<p> <strong>文件系统</strong></p>
+<p>$<strong>du -sh dir</strong></p>
+<p>显示文件夹大小， -h 人类可读的单位， -s 摘要信息</p>
+<p>$<strong>find pathname -option [-print]<br> [-exec -ok command] {}  \</strong></p>
+<p>其中的option常用的有name,perm,mtime,size,depth,type等等，print就是打印找到的东西，exec和ok都是对找到的文件执行command的命令，区别在于ok会询问用户，{}指代了查找到的文件注意{}和\之间的空格。其实也可以用管道加xargs，效果同exec。</p>
+<p>$<strong>cd ~</strong></p>
+<p>回到主目录</p>
+<p>$<strong>cd -</strong></p>
+<p>回到上次操作的目录</p>
+<p>$<strong>df</strong></p>
+<p>检查文件系统磁盘空间占用情况</p>
+<p>$<strong>fdisk</strong></p>
+<p>对磁盘进行分区</p>
+<p> <strong>进程</strong></p>
+<p>$<strong>top</strong></p>
+<p>显示进程信息，并实时更新。包含的内容很多，有负载情况，内存、CPU的使用情况，swap，进程状态等等</p>
+<p>$<strong>ps</strong></p>
+<p>显示当前shell下的进程</p>
+<p>$<strong>kill PID</strong></p>
+<p>杀死PID进程</p>
+<p>$<strong>kill %job</strong></p>
+<p>杀死job工作</p>
+<p>$<strong>dmesg</strong></p>
+<p>显示系统日志</p>
+<p> <strong>网络</strong></p>
+<p>$<strong>ifconfig</strong></p>
+<p>显示网络接口以及ip地址</p>
+<p>$<strong>route</strong></p>
+<p>显示路由表，也可以用于修改路由表</p>
+<p>$<strong>netstat</strong></p>
+<p>显示当前网络连接状态</p>
+<p>$<strong>ping IP</strong></p>
+<p>发送ping包到地址ip</p>
+<p>$<strong>traceroute ip</strong></p>
+<p>探测到地址ip的路由路径</p>
+<p>$<strong>wget url</strong></p>
+<p>下载URL指向的资源</p>
+<p>上面的命令都是一些最简单的介绍，参数什么的都没有具体讲，学习最主要的是方法，知道一些命令的大概功能后，不懂的man一下就行了。让我们在linux的世界里愉快的玩耍吧。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="externa]]>
+    </summary>
+    
+      <category term="linux" scheme="http://yoursite.com/tags/linux/"/>
+    
+      <category term="tech" scheme="http://yoursite.com/categories/tech/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[位运算]]></title>
