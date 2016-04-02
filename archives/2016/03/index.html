@@ -40,8 +40,6 @@
 
 
 
-  
-
 
   <link rel="alternate" href="/atom.xml" title="薛定谔的喵" type="application/atom+xml" />
 
@@ -57,13 +55,12 @@
 
 <meta name="description" content="一只喵的成长之路">
 <meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta property="og:title" content="薛定谔的喵">
+<meta property="og:url" content="http://yoursite.com/archives/2016/03/index.html">
 <meta property="og:site_name" content="薛定谔的喵">
 <meta property="og:description" content="一只喵的成长之路">
-<meta property="og:updated_time" content="2015-12-07T13:14:45.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
+<meta name="twitter:title" content="薛定谔的喵">
 <meta name="twitter:description" content="一只喵的成长之路">
 
 
@@ -76,13 +73,7 @@
   };
 </script>
 
-  <title>
-  
-
-  
-    标签 | 薛定谔的喵
-  
-</title>
+  <title> 归档 | 薛定谔的喵 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -113,7 +104,7 @@
 
 
 
-  <div class="container one-column ">
+  <div class="container one-column  page-archive ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -242,19 +233,66 @@
         <div id="content" class="content">
           
 
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-collapse">
+    <span class="archive-move-on"></span>
+
+    <span class="archive-page-counter">
+      
+      
+      
+        
+      
+      嗯..! 目前共计 6 篇日志。 继续努力。
+    </span>
+
     
-    
-      <div class="tag-cloud">
-        <div class="tag-cloud-title">
-            目前共计 10 个标签
+
+      
+      
+      
+
+      
+        
+        <div class="collection-title">
+          <h2 class="archive-year motion-element" id="archive-year-2016">2016</h2>
         </div>
-        <div class="tag-cloud-tags">
-          <a href="/tags/NexT/" style="font-size: 12px; color: #ccc">NexT</a> <a href="/tags/blog/" style="font-size: 12px; color: #ccc">blog</a> <a href="/tags/clone/" style="font-size: 12px; color: #ccc">clone</a> <a href="/tags/fork/" style="font-size: 12px; color: #ccc">fork</a> <a href="/tags/hexo/" style="font-size: 12px; color: #ccc">hexo</a> <a href="/tags/linux/" style="font-size: 12px; color: #ccc">linux</a> <a href="/tags/short-url/" style="font-size: 12px; color: #ccc">short_url</a> <a href="/tags/vfork/" style="font-size: 12px; color: #ccc">vfork</a> <a href="/tags/位运算-异或/" style="font-size: 12px; color: #ccc">位运算 异或</a> <a href="/tags/进程/" style="font-size: 12px; color: #ccc">进程</a>
-        </div>
+      
+      
+
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
+        
+            <a class="post-title-link" href="/2016/03/02/Linux创建进程的方法/" itemprop="url">
+              
+                <span itemprop="name">Linux创建进程的方法</span>
+              
+            </a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2016-03-02T22:51:00+08:00"
+              content="2016-03-02" >
+          03-02
+        </time>
       </div>
+
+    </header>
+  </article>
+
+
+
     
-  </div>
+
+  </section>
+
+  
+
 
 
         </div>
@@ -263,14 +301,6 @@
 
 
         
-  <div class="comments" id="comments">
-    
-      <div class="ds-thread" data-thread-key="tags/index.html"
-           data-title="tags" data-url="http://yoursite.com/tags/index.html">
-      </div>
-    
-  </div>
-
 
       </div>
 
@@ -398,6 +428,12 @@
 
   
   
+  
+    <script type="text/javascript">
+      postMotionOptions = {stagger: 100, drag: true};
+    </script>
+  
+
 
   
     
@@ -441,6 +477,12 @@
   <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
 
   
+  
+    <script type="text/javascript" id="motion.page.archive">
+      $('.archive-year').velocity('transition.slideLeftIn');
+    </script>
+  
+
 
   <script type="text/javascript" src="/js/bootstrap.js"></script>
 

@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="NexT,blog,hexo," />
+  <meta name="keywords" content="clone,fork,vfork,进程," />
 
 
 
@@ -54,18 +54,24 @@
 
 
 <meta name="description" content="转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我喝咖啡
-很早以前就在自己的Todo List里加入了写博客一项，只是懒癌发作迟迟没有动手。最近闲来无事，便花了点时间折腾了一番。其实之前在vps上搭建了WordPress,但是感觉主题太丑，加功能什么的操作复杂，自己都不愿意访问，后来就搁浅了。这次决定在GitHub写了，然后看了看推荐比较多的hexo，逼格满满啊，马上就开始动手">
+##linux创建进程的方法在Linux中主要提供了fork、vfork、clone三种创建进程的方法。下面我们分别介绍他们的特点以及不同之处。
+###fork###
+创建进程最常用的就是fork，这样得到的子进程完全复制父进程的资源，仅有少量信息如task_struct结构和pid父子进程是不同的。但是比如文件描述符，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo你的博客">
-<meta property="og:url" content="http://yoursite.com/2015/12/08/hexo-your-blog/index.html">
+<meta property="og:title" content="Linux创建进程的方法">
+<meta property="og:url" content="http://yoursite.com/2016/03/02/Linux创建进程的方法/index.html">
 <meta property="og:site_name" content="薛定谔的喵">
 <meta property="og:description" content="转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我喝咖啡
-很早以前就在自己的Todo List里加入了写博客一项，只是懒癌发作迟迟没有动手。最近闲来无事，便花了点时间折腾了一番。其实之前在vps上搭建了WordPress,但是感觉主题太丑，加功能什么的操作复杂，自己都不愿意访问，后来就搁浅了。这次决定在GitHub写了，然后看了看推荐比较多的hexo，逼格满满啊，马上就开始动手">
-<meta property="og:updated_time" content="2015-12-08T07:43:58.000Z">
+##linux创建进程的方法在Linux中主要提供了fork、vfork、clone三种创建进程的方法。下面我们分别介绍他们的特点以及不同之处。
+###fork###
+创建进程最常用的就是fork，这样得到的子进程完全复制父进程的资源，仅有少量信息如task_struct结构和pid父子进程是不同的。但是比如文件描述符，">
+<meta property="og:updated_time" content="2016-04-02T14:52:53.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hexo你的博客">
+<meta name="twitter:title" content="Linux创建进程的方法">
 <meta name="twitter:description" content="转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我喝咖啡
-很早以前就在自己的Todo List里加入了写博客一项，只是懒癌发作迟迟没有动手。最近闲来无事，便花了点时间折腾了一番。其实之前在vps上搭建了WordPress,但是感觉主题太丑，加功能什么的操作复杂，自己都不愿意访问，后来就搁浅了。这次决定在GitHub写了，然后看了看推荐比较多的hexo，逼格满满啊，马上就开始动手">
+##linux创建进程的方法在Linux中主要提供了fork、vfork、clone三种创建进程的方法。下面我们分别介绍他们的特点以及不同之处。
+###fork###
+创建进程最常用的就是fork，这样得到的子进程完全复制父进程的资源，仅有少量信息如task_struct结构和pid父子进程是不同的。但是比如文件描述符，">
 
 
 
@@ -77,7 +83,7 @@
   };
 </script>
 
-  <title> hexo你的博客 | 薛定谔的喵 </title>
+  <title> Linux创建进程的方法 | 薛定谔的喵 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -258,7 +264,7 @@
             
             
               
-                hexo你的博客
+                Linux创建进程的方法
               
             
           </h1>
@@ -267,8 +273,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-12-08T11:46:12+08:00" content="2015-12-08">
-              2015-12-08
+            <time itemprop="dateCreated" datetime="2016-03-02T22:51:00+08:00" content="2016-03-02">
+              2016-03-02
             </time>
           </span>
 
@@ -277,8 +283,8 @@
               &nbsp; | &nbsp; 分类于
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Essay/" itemprop="url" rel="index">
-                    <span itemprop="name">Essay</span>
+                  <a href="/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">tech</span>
                   </a>
                 </span>
 
@@ -293,8 +299,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/08/hexo-your-blog/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/08/hexo-your-blog/" itemprop="commentsCount"></span>
+                <a href="/2016/03/02/Linux创建进程的方法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/02/Linux创建进程的方法/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -314,10 +320,20 @@
 
       
         <span itemprop="articleBody"><p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="external">喝咖啡</a></strong></p>
-<p>很早以前就在自己的Todo List里加入了写博客一项，只是懒癌发作迟迟没有动手。最近闲来无事，便花了点时间折腾了一番。其实之前在vps上搭建了WordPress,但是感觉主题太丑，加功能什么的操作复杂，自己都不愿意访问，后来就搁浅了。这次决定在GitHub写了，然后看了看推荐比较多的hexo，逼格满满啊，马上就开始动手了。于是就有了这篇处女博，大概记录一下过程，供人参考。</p>
-<p>为了贯彻落实不重复造轮子的理念（一个字，懒），我还是给一个链接吧，<a href="http://ibruce.info/2013/11/22/hexo-your-blog/" target="_blank" rel="external">hexo你的博客</a>,这篇博客详细的写了整个搭建过程，写的很好。我基本就是按照这个来的，大问题没有，中间出了点小问题就是本地搭建完成访问没问题，但是部署到GitHub上后没效果，纠结了一会上网查了以后发现是在配置文件里每个配置项的冒号：后要加一个空格才能写内容。我就是少了一个空格，所以一直没有把代码提交上去。关键是他还不报错，就算报错也不能精确定位，这也算是hexo的一个不足之处。不过瑕不掩瑜，hexo简约，大方，还是很方便滴。</p>
-<p>博客建完以后，爱折腾的人估计会对主题不太满意，没关系，开源社区里早就有人开发了多种主题供您挑选，满足个性化需求。<a href="http://www.zhihu.com/question/24422335" target="_blank" rel="external">好看的hexo主题</a>里面家顺张的回答里根据star数做了一个排名，多试一试总会找到符合心意的，顺便说一下从网站下面可以看到我的主题是Next。Next主题的安装配置<a href="http://theme-next.iissnan.com/" target="_blank" rel="external">在这里</a>。</p>
-<p>本来想写成一个一步步搭建hexo的博客，结果成了一个介绍别人搭建hexo博客的博客，/(ㄒoㄒ)/~~。</p>
+<p>##linux创建进程的方法<br>在Linux中主要提供了fork、vfork、clone三种创建进程的方法。下面我们分别介绍他们的特点以及不同之处。</p>
+<p>###<strong>fork</strong>###</p>
+<p>创建进程最常用的就是fork，这样得到的子进程完全复制父进程的资源，仅有少量信息如task_struct结构和pid父子进程是不同的。但是比如文件描述符，打开的文件的读写位置指针等都是相同的。这样得到的子进程独立于父进程，具有良好的并发性，但是两者之间的通信需要专门的通信机制比如管道，共享内存。因为子进程存有父进程的资源副本，所以fork是一个开销很大的系统调用。有时候这样是很不必要的，比如fork出来的子进程仅仅是为了调用exec执行另外的程序，那么fork过程的复制将是一个多余的过程。现在的Linux采用了写时复制的技术，为了降低开销，fork最初并不会真正产生两个不同的拷贝，因为那个时候，大量的数据其实是一样的。写时复制推迟了真正的数据拷贝。若后来确实发生了写入，那那意味着parent和child的数据不一致了，于是产生复制动作，每个进程拿到属于自己的那一份，这样就可以降低系统调用的开销。所以有了写时复制后呢，vfork其实现意义就不大了(后面会讲到)。</p>
+<p>fork调用执行一次返回两个值，对于父进程，fork函数返回子程序的进程号，而对于子程序，fork函数则返回零，这就是一个函数返回两次的本质。 </p>
+<p>在fork之后，子进程和父进程都会继续执行fork调用之后的指令。子进程是父进程的副本。它将获得父进程的数据空间，堆和栈的副本，这些都是副本，父子进程并不共享这部分的内存。也就是说，子进程对父进程中的同名变量进行修改并不会影响其在父进程中的值。但是父子进程又共享一些东西，简单说来就是程序的正文段。正文段存放着由cpu执行的机器指令，通常是read-only的。</p>
+<p>###<strong>vfork</strong>###</p>
+<p>既然有了fork，为什么还会有vfork呢？看fork的man page我们就可以知道啦。</p>
+<p><em>In the bad old days a fork would require making a complete copy of the caller’s data space, often needlessly, since usually immediately afterwards an exec is done. Thus, for greater efficiency, BSD introduced the vfork system call, which did not fully copy the address space of the parent process, but borrowed the parent’s memory and thread of control until a call to execve or an exit occurred. The parent process was suspended while the child was using its resources. The use of vfork was tricky: for example, not modifying data in the parent process depended on knowing which variables are held in a register</em></p>
+<p>就是为了处理上文分析的fork后子进程马上exec一个外部程序使得复制没意义这样的问题，BSD提出了vfork，这样会使父子进程共享地址空间。这个时候如果子进程修改了某个变量，父进程也会做同样的修改。</p>
+<p>但此处有一点要注意的是用vfork创建的子进程必须显示调用exit()来结束，用return会挂掉，详细情况有兴趣的可以参考<a href="http://coolshell.cn/articles/12103.html" target="_blank" rel="external">这篇文章</a>。用 vfork创建子进程后，父进程会被阻塞直到子进程调用exec或exit，这也就是说vfork会保证子进程先运行，而fork的情况下两者是竞争关系，运行顺序无法得到保证。</p>
+<p>###<strong>vfork</strong>###</p>
+<p>clone的函数原型<br>int clone(int (<em>fn)(void </em>), void <em>child_stack, int flags, void </em>arg);</p>
+<p>系统调用fork和vfork是无参数的，而clone则带有参数。fork是全部复制，vfork是共享内存，而clone是则可以将父进程资源有选择地复制给子进程，而没有复制的数据结构则通过指针的复制让子进程共享，具体要复制哪些资源给子进程，由参数列表中的 flags来决定。另外，clone返回的是子进程的pid。</p>
+<p>以上就是Linux下的几种创建进程的方式，vfork比较危险，如果不是特别关注性能不建议使用，clone提供了复杂的参数，可以实现对子进程较为精细的控制，在实践中应该根据自己需求选择合适的调用。</p>
 </span>
       
     </div>
@@ -326,11 +342,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/NexT/" rel="tag">#NexT</a>
+            <a href="/tags/clone/" rel="tag">#clone</a>
           
-            <a href="/tags/blog/" rel="tag">#blog</a>
+            <a href="/tags/fork/" rel="tag">#fork</a>
           
-            <a href="/tags/hexo/" rel="tag">#hexo</a>
+            <a href="/tags/vfork/" rel="tag">#vfork</a>
+          
+            <a href="/tags/进程/" rel="tag">#进程</a>
           
         </div>
       
@@ -339,13 +357,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/01/30/linux常用命令/" rel="next" title="linux常用命令">
+                <i class="fa fa-chevron-left"></i> linux常用命令
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/12/08/about/" rel="prev" title="about">
-                about <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -372,8 +390,8 @@
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/12/08/hexo-your-blog/"
-           data-title="hexo你的博客" data-url="http://yoursite.com/2015/12/08/hexo-your-blog/">
+      <div class="ds-thread" data-thread-key="2016/03/02/Linux创建进程的方法/"
+           data-title="Linux创建进程的方法" data-url="http://yoursite.com/2016/03/02/Linux创建进程的方法/">
       </div>
     
   </div>

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[成长之路]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2016-03-30T03:20:42.000Z</updated>
+  <updated>2016-04-02T14:52:53.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,44 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Linux创建进程的方法]]></title>
+    <link href="http://yoursite.com/2016/03/02/Linux%E5%88%9B%E5%BB%BA%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95/"/>
+    <id>http://yoursite.com/2016/03/02/Linux创建进程的方法/</id>
+    <published>2016-03-02T14:51:00.000Z</published>
+    <updated>2016-04-02T14:52:53.000Z</updated>
+    <content type="html"><![CDATA[<p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="external">喝咖啡</a></strong></p>
+<p>##linux创建进程的方法<br>在Linux中主要提供了fork、vfork、clone三种创建进程的方法。下面我们分别介绍他们的特点以及不同之处。</p>
+<p>###<strong>fork</strong>###</p>
+<p>创建进程最常用的就是fork，这样得到的子进程完全复制父进程的资源，仅有少量信息如task_struct结构和pid父子进程是不同的。但是比如文件描述符，打开的文件的读写位置指针等都是相同的。这样得到的子进程独立于父进程，具有良好的并发性，但是两者之间的通信需要专门的通信机制比如管道，共享内存。因为子进程存有父进程的资源副本，所以fork是一个开销很大的系统调用。有时候这样是很不必要的，比如fork出来的子进程仅仅是为了调用exec执行另外的程序，那么fork过程的复制将是一个多余的过程。现在的Linux采用了写时复制的技术，为了降低开销，fork最初并不会真正产生两个不同的拷贝，因为那个时候，大量的数据其实是一样的。写时复制推迟了真正的数据拷贝。若后来确实发生了写入，那那意味着parent和child的数据不一致了，于是产生复制动作，每个进程拿到属于自己的那一份，这样就可以降低系统调用的开销。所以有了写时复制后呢，vfork其实现意义就不大了(后面会讲到)。</p>
+<p>fork调用执行一次返回两个值，对于父进程，fork函数返回子程序的进程号，而对于子程序，fork函数则返回零，这就是一个函数返回两次的本质。 </p>
+<p>在fork之后，子进程和父进程都会继续执行fork调用之后的指令。子进程是父进程的副本。它将获得父进程的数据空间，堆和栈的副本，这些都是副本，父子进程并不共享这部分的内存。也就是说，子进程对父进程中的同名变量进行修改并不会影响其在父进程中的值。但是父子进程又共享一些东西，简单说来就是程序的正文段。正文段存放着由cpu执行的机器指令，通常是read-only的。</p>
+<p>###<strong>vfork</strong>###</p>
+<p>既然有了fork，为什么还会有vfork呢？看fork的man page我们就可以知道啦。</p>
+<p><em>In the bad old days a fork would require making a complete copy of the caller’s data space, often needlessly, since usually immediately afterwards an exec is done. Thus, for greater efficiency, BSD introduced the vfork system call, which did not fully copy the address space of the parent process, but borrowed the parent’s memory and thread of control until a call to execve or an exit occurred. The parent process was suspended while the child was using its resources. The use of vfork was tricky: for example, not modifying data in the parent process depended on knowing which variables are held in a register</em></p>
+<p>就是为了处理上文分析的fork后子进程马上exec一个外部程序使得复制没意义这样的问题，BSD提出了vfork，这样会使父子进程共享地址空间。这个时候如果子进程修改了某个变量，父进程也会做同样的修改。</p>
+<p>但此处有一点要注意的是用vfork创建的子进程必须显示调用exit()来结束，用return会挂掉，详细情况有兴趣的可以参考<a href="http://coolshell.cn/articles/12103.html" target="_blank" rel="external">这篇文章</a>。用 vfork创建子进程后，父进程会被阻塞直到子进程调用exec或exit，这也就是说vfork会保证子进程先运行，而fork的情况下两者是竞争关系，运行顺序无法得到保证。</p>
+<p>###<strong>vfork</strong>###</p>
+<p>clone的函数原型<br>int clone(int (<em>fn)(void </em>), void <em>child_stack, int flags, void </em>arg);</p>
+<p>系统调用fork和vfork是无参数的，而clone则带有参数。fork是全部复制，vfork是共享内存，而clone是则可以将父进程资源有选择地复制给子进程，而没有复制的数据结构则通过指针的复制让子进程共享，具体要复制哪些资源给子进程，由参数列表中的 flags来决定。另外，clone返回的是子进程的pid。</p>
+<p>以上就是Linux下的几种创建进程的方式，vfork比较危险，如果不是特别关注性能不建议使用，clone提供了复杂的参数，可以实现对子进程较为精细的控制，在实践中应该根据自己需求选择合适的调用。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="externa]]>
+    </summary>
+    
+      <category term="clone" scheme="http://yoursite.com/tags/clone/"/>
+    
+      <category term="fork" scheme="http://yoursite.com/tags/fork/"/>
+    
+      <category term="vfork" scheme="http://yoursite.com/tags/vfork/"/>
+    
+      <category term="进程" scheme="http://yoursite.com/tags/%E8%BF%9B%E7%A8%8B/"/>
+    
+      <category term="tech" scheme="http://yoursite.com/categories/tech/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[linux常用命令]]></title>

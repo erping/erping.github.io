@@ -40,8 +40,6 @@
 
 
 
-  
-
 
   <link rel="alternate" href="/atom.xml" title="薛定谔的喵" type="application/atom+xml" />
 
@@ -57,13 +55,12 @@
 
 <meta name="description" content="一只喵的成长之路">
 <meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta property="og:title" content="薛定谔的喵">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="薛定谔的喵">
 <meta property="og:description" content="一只喵的成长之路">
-<meta property="og:updated_time" content="2015-12-07T13:14:45.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
+<meta name="twitter:title" content="薛定谔的喵">
 <meta name="twitter:description" content="一只喵的成长之路">
 
 
@@ -76,13 +73,7 @@
   };
 </script>
 
-  <title>
-  
-
-  
-    标签 | 薛定谔的喵
-  
-</title>
+  <title> 薛定谔的喵 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -113,7 +104,9 @@
 
 
 
-  <div class="container one-column ">
+  <div class="container one-column 
+   page-home 
+">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -241,20 +234,129 @@
       <div class="main-inner">
         <div id="content" class="content">
           
+  <section id="posts" class="posts-expand">
 
-  <div id="posts" class="posts-expand">
+    
+
     
     
-      <div class="tag-cloud">
-        <div class="tag-cloud-title">
-            目前共计 10 个标签
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/12/08/hexo-your-blog/" itemprop="url">
+                  hexo你的博客
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-12-08T11:46:12+08:00" content="2015-12-08">
+              2015-12-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Essay/" itemprop="url" rel="index">
+                    <span itemprop="name">Essay</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/12/08/hexo-your-blog/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/08/hexo-your-blog/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
         </div>
-        <div class="tag-cloud-tags">
-          <a href="/tags/NexT/" style="font-size: 12px; color: #ccc">NexT</a> <a href="/tags/blog/" style="font-size: 12px; color: #ccc">blog</a> <a href="/tags/clone/" style="font-size: 12px; color: #ccc">clone</a> <a href="/tags/fork/" style="font-size: 12px; color: #ccc">fork</a> <a href="/tags/hexo/" style="font-size: 12px; color: #ccc">hexo</a> <a href="/tags/linux/" style="font-size: 12px; color: #ccc">linux</a> <a href="/tags/short-url/" style="font-size: 12px; color: #ccc">short_url</a> <a href="/tags/vfork/" style="font-size: 12px; color: #ccc">vfork</a> <a href="/tags/位运算-异或/" style="font-size: 12px; color: #ccc">位运算 异或</a> <a href="/tags/进程/" style="font-size: 12px; color: #ccc">进程</a>
-        </div>
-      </div>
+      </header>
     
-  </div>
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="external">喝咖啡</a></strong></p>
+<p>很早以前就在自己的Todo List里加入了写博客一项，只是懒癌发作迟迟没有动手。最近闲来无事，便花了点时间折腾了一番。其实之前在vps上搭建了WordPress,但是感觉主题太丑，加功能什么的操作复杂，自己都不愿意访问，后来就搁浅了。这次决定在GitHub写了，然后看了看推荐比较多的hexo，逼格满满啊，马上就开始动手了。于是就有了这篇处女博，大概记录一下过程，供人参考。</p>
+<p>为了贯彻落实不重复造轮子的理念（一个字，懒），我还是给一个链接吧，<a href="http://ibruce.info/2013/11/22/hexo-your-blog/" target="_blank" rel="external">hexo你的博客</a>,这篇博客详细的写了整个搭建过程，写的很好。我基本就是按照这个来的，大问题没有，中间出了点小问题就是本地搭建完成访问没问题，但是部署到GitHub上后没效果，纠结了一会上网查了以后发现是在配置文件里每个配置项的冒号：后要加一个空格才能写内容。我就是少了一个空格，所以一直没有把代码提交上去。关键是他还不报错，就算报错也不能精确定位，这也算是hexo的一个不足之处。不过瑕不掩瑜，hexo简约，大方，还是很方便滴。</p>
+<p>博客建完以后，爱折腾的人估计会对主题不太满意，没关系，开源社区里早就有人开发了多种主题供您挑选，满足个性化需求。<a href="http://www.zhihu.com/question/24422335" target="_blank" rel="external">好看的hexo主题</a>里面家顺张的回答里根据star数做了一个排名，多试一试总会找到符合心意的，顺便说一下从网站下面可以看到我的主题是Next。Next主题的安装配置<a href="http://theme-next.iissnan.com/" target="_blank" rel="external">在这里</a>。</p>
+<p>本来想写成一个一步步搭建hexo的博客，结果成了一个介绍别人搭建hexo博客的博客，/(ㄒoㄒ)/~~。</p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
         </div>
@@ -263,14 +365,6 @@
 
 
         
-  <div class="comments" id="comments">
-    
-      <div class="ds-thread" data-thread-key="tags/index.html"
-           data-title="tags" data-url="http://yoursite.com/tags/index.html">
-      </div>
-    
-  </div>
-
 
       </div>
 
