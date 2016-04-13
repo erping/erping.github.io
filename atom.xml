@@ -4,7 +4,7 @@
   <subtitle><![CDATA[成长之路]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2016-04-02T14:58:07.000Z</updated>
+  <updated>2016-04-13T08:51:48.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,47 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Bash快捷键]]></title>
+    <link href="http://yoursite.com/2016/04/13/Bash%E5%BF%AB%E6%8D%B7%E9%94%AE/"/>
+    <id>http://yoursite.com/2016/04/13/Bash快捷键/</id>
+    <published>2016-04-13T08:50:07.000Z</published>
+    <updated>2016-04-13T08:51:48.000Z</updated>
+    <content type="html"><![CDATA[<p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="external">喝咖啡</a></strong></p>
+<p>当你输入了一长串的命令却发现开头有错误的时候，你会一直按&lt;-使光标移动过去么？当你忘记之前输入的命令的全称的时候你会先history然后执行么？少年，工欲善其事必先利其器，学习一些bash快捷键让你又cool又快。</p>
+<p>Ctrl-A 相当于HOME键，用于将光标定位到本行最前面</p>
+<p><strong>Ctrl-E 相当于End键，即将光标移动到本行末尾</strong></p>
+<p>Ctrl-B 相当于左箭头键，用于将光标向左移动一格</p>
+<p>Ctrl-F 相当于右箭头键，用于将光标向右移动一格</p>
+<p>Ctrl-D 相当于Del键，即删除光标所在处的字符</p>
+<p>Ctrl-K 用于删除从光标处开始到结尾处的所有字符</p>
+<p><strong>Ctrl-L 清屏，相当于clear命令</strong></p>
+<p><strong>Ctrl-R 进入历史命令查找状态，然后你输入几个关键字符，就可以找到你使用过的命令</strong></p>
+<p><strong>Ctrl-U 用于删除从光标开始到行首的所有字符。一般在密码或命令输入错误时常用</strong></p>
+<p>Ctrl-H 删除光标左侧的一个字符</p>
+<p>Ctrl-W 用于删除当前光标左侧的一个单词</p>
+<p><strong>Ctrl-P 相当于上箭头键，即显示上一个命令</strong></p>
+<p>Ctrl-N 相当于下箭头键，即显示下一个命令</p>
+<p>Ctrl-J 相当于回车键</p>
+<p>Alt-. 用于提取历史命令中的最后一个单词。你先执行history命令，然后再敲击此快捷键若干下，你就懂了！</p>
+<p>Alt-BackSpace 用于删除本行所有的内容，基本上和Ctrl-U类似。</p>
+<p>Alt-C 用于将当前光标处的字符变成大写，同时本光标所在单词的后续字符都变成小写。</p>
+<p>Alt-L 用于将光标所在单词及所在单词的后续字符都变成小写。</p>
+<p>Alt-U 用于将光标所在单词的光标所在处及之后的所有字符变成大写。</p>
+<p>黑体的是推荐的常用快捷键，多用几次很快就熟悉啦。人生又省出很多时间，可以进行思考了。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="externa]]>
+    </summary>
+    
+      <category term="bash" scheme="http://yoursite.com/tags/bash/"/>
+    
+      <category term="linux" scheme="http://yoursite.com/tags/linux/"/>
+    
+      <category term="tech" scheme="http://yoursite.com/categories/tech/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Linux创建进程的方法]]></title>
