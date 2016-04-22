@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="NexT,blog,hexo," />
+  <meta name="keywords" content="bitmap,海量数据," />
 
 
 
@@ -54,18 +54,35 @@
 
 
 <meta name="description" content="转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我喝咖啡
-很早以前就在自己的Todo List里加入了写博客一项，只是懒癌发作迟迟没有动手。最近闲来无事，便花了点时间折腾了一番。其实之前在vps上搭建了WordPress,但是感觉主题太丑，加功能什么的操作复杂，自己都不愿意访问，后来就搁浅了。这次决定在GitHub写了，然后看了看推荐比较多的hexo，逼格满满啊，马上就开始动手">
+
+定义
+
+位图就是bitmap，也就是用一个位来表示某种状态，特别适合数据规模很大，但是数据状态很少的情况。通常用来判断某个数是否存在于集合中。在STL中就有一个叫做bitset的容器，其实就是位图法，引用bitset的介绍：
+
+A bitset is a special container class that is">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo你的博客">
-<meta property="og:url" content="http://yoursite.com/2015/12/08/hexo-your-blog/index.html">
+<meta property="og:title" content="位图法">
+<meta property="og:url" content="http://yoursite.com/2016/04/22/位图法/index.html">
 <meta property="og:site_name" content="薛定谔的喵">
 <meta property="og:description" content="转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我喝咖啡
-很早以前就在自己的Todo List里加入了写博客一项，只是懒癌发作迟迟没有动手。最近闲来无事，便花了点时间折腾了一番。其实之前在vps上搭建了WordPress,但是感觉主题太丑，加功能什么的操作复杂，自己都不愿意访问，后来就搁浅了。这次决定在GitHub写了，然后看了看推荐比较多的hexo，逼格满满啊，马上就开始动手">
-<meta property="og:updated_time" content="2015-12-08T07:43:58.000Z">
+
+定义
+
+位图就是bitmap，也就是用一个位来表示某种状态，特别适合数据规模很大，但是数据状态很少的情况。通常用来判断某个数是否存在于集合中。在STL中就有一个叫做bitset的容器，其实就是位图法，引用bitset的介绍：
+
+A bitset is a special container class that is">
+<meta property="og:image" content="http://7xp01p.com1.z0.glb.clouddn.com/bitmap1.jpg">
+<meta property="og:image" content="http://7xp01p.com1.z0.glb.clouddn.com/bitmap2.jpg">
+<meta property="og:updated_time" content="2016-04-22T13:15:11.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hexo你的博客">
+<meta name="twitter:title" content="位图法">
 <meta name="twitter:description" content="转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我喝咖啡
-很早以前就在自己的Todo List里加入了写博客一项，只是懒癌发作迟迟没有动手。最近闲来无事，便花了点时间折腾了一番。其实之前在vps上搭建了WordPress,但是感觉主题太丑，加功能什么的操作复杂，自己都不愿意访问，后来就搁浅了。这次决定在GitHub写了，然后看了看推荐比较多的hexo，逼格满满啊，马上就开始动手">
+
+定义
+
+位图就是bitmap，也就是用一个位来表示某种状态，特别适合数据规模很大，但是数据状态很少的情况。通常用来判断某个数是否存在于集合中。在STL中就有一个叫做bitset的容器，其实就是位图法，引用bitset的介绍：
+
+A bitset is a special container class that is">
 
 
 
@@ -77,7 +94,7 @@
   };
 </script>
 
-  <title> hexo你的博客 | 薛定谔的喵 </title>
+  <title> 位图法 | 薛定谔的喵 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -258,7 +275,7 @@
             
             
               
-                hexo你的博客
+                位图法
               
             
           </h1>
@@ -267,8 +284,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-12-08T11:46:12+08:00" content="2015-12-08">
-              2015-12-08
+            <time itemprop="dateCreated" datetime="2016-04-22T21:10:51+08:00" content="2016-04-22">
+              2016-04-22
             </time>
           </span>
 
@@ -277,8 +294,8 @@
               &nbsp; | &nbsp; 分类于
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Essay/" itemprop="url" rel="index">
-                    <span itemprop="name">Essay</span>
+                  <a href="/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">tech</span>
                   </a>
                 </span>
 
@@ -293,8 +310,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/08/hexo-your-blog/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/08/hexo-your-blog/" itemprop="commentsCount"></span>
+                <a href="/2016/04/22/位图法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/22/位图法/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -314,10 +331,54 @@
 
       
         <span itemprop="articleBody"><p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="external">喝咖啡</a></strong></p>
-<p>很早以前就在自己的Todo List里加入了写博客一项，只是懒癌发作迟迟没有动手。最近闲来无事，便花了点时间折腾了一番。其实之前在vps上搭建了WordPress,但是感觉主题太丑，加功能什么的操作复杂，自己都不愿意访问，后来就搁浅了。这次决定在GitHub写了，然后看了看推荐比较多的hexo，逼格满满啊，马上就开始动手了。于是就有了这篇处女博，大概记录一下过程，供人参考。</p>
-<p>为了贯彻落实不重复造轮子的理念（一个字，懒），我还是给一个链接吧，<a href="http://ibruce.info/2013/11/22/hexo-your-blog/" target="_blank" rel="external">hexo你的博客</a>,这篇博客详细的写了整个搭建过程，写的很好。我基本就是按照这个来的，大问题没有，中间出了点小问题就是本地搭建完成访问没问题，但是部署到GitHub上后没效果，纠结了一会上网查了以后发现是在配置文件里每个配置项的冒号：后要加一个空格才能写内容。我就是少了一个空格，所以一直没有把代码提交上去。关键是他还不报错，就算报错也不能精确定位，这也算是hexo的一个不足之处。不过瑕不掩瑜，hexo简约，大方，还是很方便滴。</p>
-<p>博客建完以后，爱折腾的人估计会对主题不太满意，没关系，开源社区里早就有人开发了多种主题供您挑选，满足个性化需求。<a href="http://www.zhihu.com/question/24422335" target="_blank" rel="external">好看的hexo主题</a>里面家顺张的回答里根据star数做了一个排名，多试一试总会找到符合心意的，顺便说一下从网站下面可以看到我的主题是Next。Next主题的安装配置<a href="http://theme-next.iissnan.com/" target="_blank" rel="external">在这里</a>。</p>
-<p>本来想写成一个一步步搭建hexo的博客，结果成了一个介绍别人搭建hexo博客的博客，/(ㄒoㄒ)/~~。</p>
+<ul>
+<li><strong>定义</strong></li>
+</ul>
+<p>位图就是bitmap，也就是用一个位来表示某种状态，特别适合数据规模很大，但是数据状态很少的情况。通常用来判断某个数是否存在于集合中。在STL中就有一个叫做bitset的容器，其实就是位图法，引用bitset的介绍：</p>
+<blockquote>
+<p><em>A bitset is a special container class that is designed to store bits (elements with only two possible values: 0 or 1,true or false, …).The class is very similar to a regular array, but optimizing for space allocation: each element occupies only one bit (which is eight times less than the smallest elemental type in C++: char).Each element (each bit) can be accessed individually: for example, for a given bitset named mybitset, the expression mybitset[3] accesses its fourth bit, just like a regular array accesses its elements.</em></p>
+</blockquote>
+<ul>
+<li><strong>数据结构</strong></li>
+</ul>
+<p>我们都知道一个字节有8个位，那么表示一个最大值小于等于15的集合用两个字节就可以。</p>
+<p><img src="http://7xp01p.com1.z0.glb.clouddn.com/bitmap1.jpg" alt=""></p>
+<p>如果将数组[2,10,3,6,14,0]存入上面的位图中，结果为（低位在右侧）</p>
+<p><img src="http://7xp01p.com1.z0.glb.clouddn.com/bitmap2.jpg" alt=""></p>
+<p>从上图可以清楚的看到存数据的时候只要把相应数据所在的位置1即可。</p>
+<ul>
+<li><strong>实际应用</strong></li>
+</ul>
+<p>一、排序</p>
+<p>输入：给定一个文件，里面最多含有n个不重复的正整数（也就是说可能含有少于n个不重复正整数），且其中每个数都小于等于n，n=10^7。 输出：得到按从小到大升序排列的包含所有输入的整数的列表。 条件：最多有大约1.5MB的内存空间可用，但磁盘空间足够.</p>
+<p>通过分析我们可以发现这个问题有其特殊性：</p>
+<ol>
+<li>输入数据限制在相对较小的范围内；</li>
+<li>数据没有重复；</li>
+<li>其中每条记录都是单一的整数，没有任何其他与之关联的数据。</li>
+</ol>
+<p>所以，可以用位图的方案分以下三部解决：</p>
+<ol>
+<li>根据数据规模创建位图，并将所有位置0；</li>
+<li>通过读入文件的每个整数建立集合，将每个数对应位置1；</li>
+<li>遍历创建好的集合，如果该位为1，就输出对应位代表的数字。</li>
+</ol>
+<p>伪代码如下表示：</p>
+<pre><code><span class="keyword">for</span> i = {0,....<span class="keyword">n</span>}
+    bit[i] = 0;
+<span class="keyword">for</span> each i <span class="keyword">in</span> the <span class="keyword">input</span> <span class="keyword">file</span>
+    bit[i] = 1;
+<span class="keyword">for</span> i = {0,....<span class="keyword">n</span>}
+    <span class="keyword">if</span> bit[i] == 1
+        write i <span class="keyword">on</span> the output <span class="keyword">file</span>
+</code></pre><p>二、查找</p>
+<p>问题：给40亿个不重复的unsigned int的整数，没排过序的，然后再给一个数，如何快速判断这个数是否在那40亿个数当中？</p>
+<p>40亿个数大约就是4G个数，按照位图每位存一个数的话，需要4G/8=512M的内存，读入这些数据，设置相应的bit位，读入要查询的数，在位图中查看相应位是否为1，为1表示存在，为0表示不存在。</p>
+<p>问题扩展：在2.5亿个整数中找出不重复的整数，注，内存不足以容纳这2.5亿个整数。</p>
+<p>一般来说位图适用于数据状态少的情况，1位的话只能表示存在与否，此问题要求的是找出不重复的数，1位就不够用了，所以需要扩展位图用2位来表示更多的状态（每个数分配2bit，00表示不存在，01表示出现一次，10表示出现多次，11无意义），这样需要2^32*2bit=1GB内存。然后扫描这2.5亿个整数，查看Bitmap中相对应位，如果是00变01，01变10，10保持不变。所描完事后，查看bitmap，把对应位是01的整数输出即可。</p>
+<p>位图就是一种用位置和状态来描述原来数据的压缩方法，在某些情况下能够用较小的空间/时间复杂度来解决问题，特别是大规模数据的时候。</p>
+<p>参考：[1].<a href="http://blog.csdn.net/wypblog/article/details/8237956" target="_blank" rel="external">http://blog.csdn.net/wypblog/article/details/8237956</a></p>
+<p>[2].<a href="http://the-art-of-programming-by-july.readthedocs.org/en/latest/ebook/zh/06.07/" target="_blank" rel="external">http://the-art-of-programming-by-july.readthedocs.org/en/latest/ebook/zh/06.07/</a></p>
 </span>
       
     </div>
@@ -326,11 +387,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/NexT/" rel="tag">#NexT</a>
+            <a href="/tags/bitmap/" rel="tag">#bitmap</a>
           
-            <a href="/tags/blog/" rel="tag">#blog</a>
-          
-            <a href="/tags/hexo/" rel="tag">#hexo</a>
+            <a href="/tags/海量数据/" rel="tag">#海量数据</a>
           
         </div>
       
@@ -339,13 +398,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/04/13/Bash快捷键/" rel="next" title="Bash快捷键">
+                <i class="fa fa-chevron-left"></i> Bash快捷键
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/12/08/about/" rel="prev" title="about">
-                about <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -372,8 +431,8 @@
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/12/08/hexo-your-blog/"
-           data-title="hexo你的博客" data-url="http://yoursite.com/2015/12/08/hexo-your-blog/">
+      <div class="ds-thread" data-thread-key="2016/04/22/位图法/"
+           data-title="位图法" data-url="http://yoursite.com/2016/04/22/位图法/">
       </div>
     
   </div>
