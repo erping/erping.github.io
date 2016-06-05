@@ -263,6 +263,188 @@
             
               
                 
+                <a class="post-title-link" href="/2016/06/05/Linux-CGroup/" itemprop="url">
+                  Linux CGroup
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-06-05T20:05:28+08:00" content="2016-06-05">
+              2016-06-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">tech</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/05/Linux-CGroup/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/05/Linux-CGroup/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="external">喝咖啡</a></strong></p>
+<p>Linux CGroup全称Linux Control Group， 是Linux内核的一个功能，用来限制，控制与分离一个进程组群的资源（如CPU、内存、磁盘输入输出等），这也是时下火热的docker的基础技术之一。</p>
+<p>Linux CGroupCgroup 可​​​让​​​您​​​为​​​系​​​统​​​中​​​所​​​运​​​行​​​任​​​务​​​（进​​​程​​​）的​​​用​​​户​​​定​​​义​​​组​​​群​​​分​​​配​​​资​​​源​​​ — 比​​​如​​​ CPU 时​​​间​​​、​​​系​​​统​​​内​​​存​​​、​​​网​​​络​​​带​​​宽​​​或​​​者​​​这​​​些​​​资​​​源​​​的​​​组​​​合​​​。​​​您​​​可​​​以​​​监​​​控​​​您​​​配​​​置​​​的​​​ cgroup，拒​​​绝​​​ cgroup 访​​​问​​​某​​​些​​​资​​​源​​​，甚​​​至​​​在​​​运​​​行​​​的​​​系​​​统​​​中​​​动​​​态​​​配​​​置​​​您​​​的​​​ cgroup。</p>
+<p>其主要提供了以下功能：</p>
+<ol>
+<li><strong>Resource limitation</strong>: 限制资源使用，比如内存使用上限以及文件系统的缓存限制。</li>
+<li><strong>Prioritization</strong>：优先级控制，比如：CPU利用和磁盘IO吞吐。</li>
+<li><strong>Accounting</strong>：一些审计或一些统计，主要目的是为了计费。</li>
+<li><strong>Control</strong>：挂起进程，恢复执行进程。</li>
+</ol>
+<p>安装也很简单，Linux将其实现为一个文件系统，在Ubuntu 14.04下输入以下命令即可：</p>
+<pre><code>spring@ubuntu:~<span class="variable">$mount</span> -t cgroup
+</code></pre><p>然后我们在/sys/fs下就可以看到一个cgroup目录，这个目录下还有很多子目录，比如： cpu，cpuset，memory，blkio……这些，这些都是cgroup的子系统，分别用于控制不同的资源。你可以到/sys/fs/cgroup的各个子目录里去创建目录，然后进入创建的目录后发现里面又有很多文件了。</p>
+<pre><code>spring<span class="variable">@ubuntu</span><span class="symbol">:/sys/fs/cgroup/cpu</span><span class="variable">$ </span>sudo mkdir test
+[sudo] password <span class="keyword">for</span> <span class="symbol">spring:</span> 
+spring<span class="variable">@ubuntu</span><span class="symbol">:/sys/fs/cgroup/cpu</span><span class="variable">$ </span>ls ./test
+cgroup.clone_children  cgroup.procs       cpu.cfs_quota_us  cpu.stat    tasks
+cgroup.event_control   cpu.cfs_period_us  cpu.shares        notify_on_release
+</code></pre><p>下面我们看几个例子来直观感受一下</p>
+<ul>
+<li><strong>CPU限制</strong></li>
+</ul>
+<p>我们先写一个非常耗费CPU的程序</p>
+<p>deadloop.c</p>
+<pre><code><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>
+</span>{
+    <span class="keyword">int</span> i = <span class="number">0</span>;
+    <span class="keyword">while</span>(<span class="number">1</span>)
+        i++;
+    <span class="keyword">return</span> <span class="number">0</span>;
+}
+</code></pre><p>然后编译执行</p>
+<pre><code>spring<span class="variable">@ubuntu</span><span class="symbol">:~</span><span class="variable">$gcc</span> -o deadloop deadloop.c
+spring<span class="variable">@ubuntu</span><span class="symbol">:~</span><span class="variable">$.</span>/deadloop
+</code></pre><p>利用top观察CPU利用情况，CPU马上到接近100%</p>
+<pre><code>PID USER      PR  NI    VIRT    RES    SHR S %CPU %MEM   TIME+ COMMAND     
+<span class="number">2273</span> root      <span class="number">20</span>   <span class="number">0</span>    <span class="number">2020</span>    <span class="number">280</span>   <span class="number">228</span> R <span class="number">99.6</span>  <span class="number">0.1</span>   <span class="number">0</span>:<span class="number">23.13</span> deadloop
+</code></pre><p>这时候我们就可以利用CGroup里的cpu来限制使用：</p>
+<pre><code><span class="label">root@ubuntu:</span>~# echo <span class="number">20000</span> &gt; /sys/<span class="literal">fs</span>/cgroup/<span class="built_in">cpu</span>/<span class="keyword">test</span>/<span class="built_in">cpu</span>.cfs_quota_us
+</code></pre><p>进程的ID为2273，我们将其加入到CGroup</p>
+<pre><code># echo <span class="number">2273</span> &gt;&gt; <span class="regexp">/sys/</span>fs<span class="regexp">/cgroup/</span>cpu<span class="regexp">/test/</span>tasks
+</code></pre><p>再top查看cpu利用马上降到20%</p>
+<pre><code>PID USER      PR  NI    VIRT    RES    SHR S %CPU %MEM   TIME+ COMMAND     
+<span class="number">2273</span> root      <span class="number">20</span>   <span class="number">0</span>    <span class="number">2020</span>    <span class="number">280</span>   <span class="number">228</span> R <span class="number">19.6</span>  <span class="number">0.1</span>   <span class="number">0</span>:<span class="number">32.43</span> deadloop
+</code></pre><ul>
+<li><strong>内存限制</strong></li>
+</ul>
+<p>同样我们写一个不断分配内存的死循环：</p>
+<pre><code><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span>
+<span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span>
+<span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span>
+<span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span>
+<span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span>
+
+<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span>
+</span>{
+    <span class="keyword">int</span> size = <span class="number">0</span>;
+    <span class="keyword">int</span> chunk_size = <span class="number">512</span>;
+    <span class="keyword">void</span> *p = <span class="literal">NULL</span>;
+
+    <span class="keyword">while</span>(<span class="number">1</span>) {
+
+        <span class="keyword">if</span> ((p = <span class="built_in">malloc</span>(p, chunk_size)) == <span class="literal">NULL</span>) {
+            <span class="built_in">printf</span>(<span class="string">"out of memory!!\n"</span>);
+            <span class="keyword">break</span>;
+        }
+        <span class="built_in">memset</span>(p, <span class="number">1</span>, chunk_size);
+        size += chunk_size;
+        <span class="built_in">printf</span>(<span class="string">"[%d] - memory is allocated [%8d] bytes \n"</span>, getpid(), size);
+        sleep(<span class="number">1</span>);
+    }
+    <span class="keyword">return</span> <span class="number">0</span>;
+}
+</code></pre><p>然后利用CGroup进行限制：</p>
+<pre><code><span class="variable">$ </span>mkdir /sys/fs/cgroup/memory/test
+<span class="variable">$ </span>echo <span class="number">64</span>k &gt; <span class="regexp">/sys/fs</span><span class="regexp">/cgroup/memory</span><span class="regexp">/test/memory</span>.limit_in_bytes
+<span class="variable">$ </span>echo pid &gt; <span class="regexp">/sys/fs</span><span class="regexp">/cgroup/memory</span><span class="regexp">/haoel/tasks</span>
+</code></pre><p>一会就能看到上面的进程因为内存分配问题被kill掉。</p>
+<p>除了cpu和memory以外还有blkio-为​​​块​​​设​​​备​​​设​​​定​​​输​​​入​​​/输​​​出​​​限​​​制​​​，比​​​如​​​物​​​理​​​设​​​备​​​（磁​​​盘​​​，固​​​态​​​硬​​​盘​​​，USB 等​​​等​​​），cpuset- cgroup 中​​​的​​​任​​​务​​​分​​​配​​​独​​​立​​​ CPU（在​​​多​​​核​​​系​​​统​​​）和​​​内​​​存​​​节​​​点,devices-允​​​许​​​或​​​者​​​拒​​​绝​​​ cgroup 中​​​的​​​任​​​务​​​访​​​问​​​设​​​备,freezer-挂​​​起​​​或​​​者​​​恢​​​复​​​ cgroup 中​​​的​​​任​​​务，还有net_cls、net_prio等等，想具体了解可以网上查阅相关资料。</p>
+<p>参考：1.<a href="http://coolshell.cn/articles/17049.html" target="_blank" rel="external">http://coolshell.cn/articles/17049.html</a><br>2.<a href="http://xiezhenye.com/2013/10/%E7%94%A8-cgroups-%E7%AE%A1%E7%90%86-cpu-%E8%B5%84%E6%BA%90.html" target="_blank" rel="external">http://xiezhenye.com/2013/10/%E7%94%A8-cgroups-%E7%AE%A1%E7%90%86-cpu-%E8%B5%84%E6%BA%90.html</a></p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/05/06/LVS集群体系架构/" itemprop="url">
                   LVS集群体系架构
                 </a>
@@ -825,129 +1007,12 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/02/Linux创建进程的方法/" itemprop="url">
-                  Linux创建进程的方法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2016-03-02T22:51:00+08:00" content="2016-03-02">
-              2016-03-02
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/tech/" itemprop="url" rel="index">
-                    <span itemprop="name">tech</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/03/02/Linux创建进程的方法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/02/Linux创建进程的方法/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-              <p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="external">喝咖啡</a></strong></p>
-<p>在Linux中主要提供了fork、vfork、clone三种创建进程的方法。下面我们分别介绍他们的特点以及不同之处。</p>
-<p><strong>fork</strong></p>
-<p>创建进程最常用的就是fork，这样得到的子进程完全复制父进程的资源，仅有少量信息如task_struct结构和pid父子进程是不同的。但是比如文件描述符，打开的文件的读写位置指针等都是相同的。这样得到的子进程独立于父进程，具有良好的并发性，但是两者之间的通信需要专门的通信机制比如管道，共享内存。因为子进程存有父进程的资源副本，所以fork是一个开销很大的系统调用。有时候这样是很不必要的，比如fork出来的子进程仅仅是为了调用exec执行另外的程序，那么fork过程的复制将是一个多余的过程。现在的Linux采用了写时复制的技术，为了降低开销，fork最初并不会真正产生两个不同的拷贝，因为那个时候，大量的数据其实是一样的。写时复制推迟了真正的数据拷贝。若后来确实发生了写入，那那意味着parent和child的数据不一致了，于是产生复制动作，每个进程拿到属于自己的那一份，这样就可以降低系统调用的开销。所以有了写时复制后呢，vfork其实现意义就不大了(后面会讲到)。</p>
-<p>fork调用执行一次返回两个值，对于父进程，fork函数返回子程序的进程号，而对于子程序，fork函数则返回零，这就是一个函数返回两次的本质。 </p>
-<p>在fork之后，子进程和父进程都会继续执行fork调用之后的指令。子进程是父进程的副本。它将获得父进程的数据空间，堆和栈的副本，这些都是副本，父子进程并不共享这部分的内存。也就是说，子进程对父进程中的同名变量进行修改并不会影响其在父进程中的值。但是父子进程又共享一些东西，简单说来就是程序的正文段。正文段存放着由cpu执行的机器指令，通常是read-only的。</p>
-<p><strong>vfork</strong></p>
-<p>既然有了fork，为什么还会有vfork呢？看fork的man page我们就可以知道啦。</p>
-<p><em>In the bad old days a fork would require making a complete copy of the caller’s data space, often needlessly, since usually immediately afterwards an exec is done. Thus, for greater efficiency, BSD introduced the vfork system call, which did not fully copy the address space of the parent process, but borrowed the parent’s memory and thread of control until a call to execve or an exit occurred. The parent process was suspended while the child was using its resources. The use of vfork was tricky: for example, not modifying data in the parent process depended on knowing which variables are held in a register</em></p>
-<p>就是为了处理上文分析的fork后子进程马上exec一个外部程序使得复制没意义这样的问题，BSD提出了vfork，这样会使父子进程共享地址空间。这个时候如果子进程修改了某个变量，父进程也会做同样的修改。</p>
-<p>但此处有一点要注意的是用vfork创建的子进程必须显示调用exit()来结束，用return会挂掉，详细情况有兴趣的可以参考<a href="http://coolshell.cn/articles/12103.html" target="_blank" rel="external">这篇文章</a>。用 vfork创建子进程后，父进程会被阻塞直到子进程调用exec或exit，这也就是说vfork会保证子进程先运行，而fork的情况下两者是竞争关系，运行顺序无法得到保证。</p>
-<p><strong>clone</strong></p>
-<p>clone的函数原型<br>int clone(int (<em>fn)(void </em>), void <em>child_stack, int flags, void </em>arg);</p>
-<p>系统调用fork和vfork是无参数的，而clone则带有参数。fork是全部复制，vfork是共享内存，而clone是则可以将父进程资源有选择地复制给子进程，而没有复制的数据结构则通过指针的复制让子进程共享，具体要复制哪些资源给子进程，由参数列表中的 flags来决定。另外，clone返回的是子进程的pid。</p>
-<p>以上就是Linux下的几种创建进程的方式，vfork比较危险，如果不是特别关注性能不建议使用，clone提供了复杂的参数，可以实现对子进程较为精细的控制，在实践中应该根据自己需求选择合适的调用。</p>
-
-            
-          </span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -988,7 +1053,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-count">11</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1002,7 +1067,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-count">17</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[成长之路]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2016-05-07T08:41:24.000Z</updated>
+  <updated>2016-06-05T12:08:52.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,103 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Linux CGroup]]></title>
+    <link href="http://yoursite.com/2016/06/05/Linux-CGroup/"/>
+    <id>http://yoursite.com/2016/06/05/Linux-CGroup/</id>
+    <published>2016-06-05T12:05:28.000Z</published>
+    <updated>2016-06-05T12:08:52.000Z</updated>
+    <content type="html"><![CDATA[<p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="external">喝咖啡</a></strong></p>
+<p>Linux CGroup全称Linux Control Group， 是Linux内核的一个功能，用来限制，控制与分离一个进程组群的资源（如CPU、内存、磁盘输入输出等），这也是时下火热的docker的基础技术之一。</p>
+<p>Linux CGroupCgroup 可​​​让​​​您​​​为​​​系​​​统​​​中​​​所​​​运​​​行​​​任​​​务​​​（进​​​程​​​）的​​​用​​​户​​​定​​​义​​​组​​​群​​​分​​​配​​​资​​​源​​​ — 比​​​如​​​ CPU 时​​​间​​​、​​​系​​​统​​​内​​​存​​​、​​​网​​​络​​​带​​​宽​​​或​​​者​​​这​​​些​​​资​​​源​​​的​​​组​​​合​​​。​​​您​​​可​​​以​​​监​​​控​​​您​​​配​​​置​​​的​​​ cgroup，拒​​​绝​​​ cgroup 访​​​问​​​某​​​些​​​资​​​源​​​，甚​​​至​​​在​​​运​​​行​​​的​​​系​​​统​​​中​​​动​​​态​​​配​​​置​​​您​​​的​​​ cgroup。</p>
+<p>其主要提供了以下功能：</p>
+<ol>
+<li><strong>Resource limitation</strong>: 限制资源使用，比如内存使用上限以及文件系统的缓存限制。</li>
+<li><strong>Prioritization</strong>：优先级控制，比如：CPU利用和磁盘IO吞吐。</li>
+<li><strong>Accounting</strong>：一些审计或一些统计，主要目的是为了计费。</li>
+<li><strong>Control</strong>：挂起进程，恢复执行进程。</li>
+</ol>
+<p>安装也很简单，Linux将其实现为一个文件系统，在Ubuntu 14.04下输入以下命令即可：</p>
+<pre><code>spring@ubuntu:~<span class="variable">$mount</span> -t cgroup
+</code></pre><p>然后我们在/sys/fs下就可以看到一个cgroup目录，这个目录下还有很多子目录，比如： cpu，cpuset，memory，blkio……这些，这些都是cgroup的子系统，分别用于控制不同的资源。你可以到/sys/fs/cgroup的各个子目录里去创建目录，然后进入创建的目录后发现里面又有很多文件了。</p>
+<pre><code>spring<span class="variable">@ubuntu</span><span class="symbol">:/sys/fs/cgroup/cpu</span><span class="variable">$ </span>sudo mkdir test
+[sudo] password <span class="keyword">for</span> <span class="symbol">spring:</span> 
+spring<span class="variable">@ubuntu</span><span class="symbol">:/sys/fs/cgroup/cpu</span><span class="variable">$ </span>ls ./test
+cgroup.clone_children  cgroup.procs       cpu.cfs_quota_us  cpu.stat    tasks
+cgroup.event_control   cpu.cfs_period_us  cpu.shares        notify_on_release
+</code></pre><p>下面我们看几个例子来直观感受一下</p>
+<ul>
+<li><strong>CPU限制</strong></li>
+</ul>
+<p>我们先写一个非常耗费CPU的程序</p>
+<p>deadloop.c</p>
+<pre><code><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>
+</span>{
+    <span class="keyword">int</span> i = <span class="number">0</span>;
+    <span class="keyword">while</span>(<span class="number">1</span>)
+        i++;
+    <span class="keyword">return</span> <span class="number">0</span>;
+}
+</code></pre><p>然后编译执行</p>
+<pre><code>spring<span class="variable">@ubuntu</span><span class="symbol">:~</span><span class="variable">$gcc</span> -o deadloop deadloop.c
+spring<span class="variable">@ubuntu</span><span class="symbol">:~</span><span class="variable">$.</span>/deadloop
+</code></pre><p>利用top观察CPU利用情况，CPU马上到接近100%</p>
+<pre><code>PID USER      PR  NI    VIRT    RES    SHR S %CPU %MEM   TIME+ COMMAND     
+<span class="number">2273</span> root      <span class="number">20</span>   <span class="number">0</span>    <span class="number">2020</span>    <span class="number">280</span>   <span class="number">228</span> R <span class="number">99.6</span>  <span class="number">0.1</span>   <span class="number">0</span>:<span class="number">23.13</span> deadloop
+</code></pre><p>这时候我们就可以利用CGroup里的cpu来限制使用：</p>
+<pre><code><span class="label">root@ubuntu:</span>~# echo <span class="number">20000</span> &gt; /sys/<span class="literal">fs</span>/cgroup/<span class="built_in">cpu</span>/<span class="keyword">test</span>/<span class="built_in">cpu</span>.cfs_quota_us
+</code></pre><p>进程的ID为2273，我们将其加入到CGroup</p>
+<pre><code># echo <span class="number">2273</span> &gt;&gt; <span class="regexp">/sys/</span>fs<span class="regexp">/cgroup/</span>cpu<span class="regexp">/test/</span>tasks
+</code></pre><p>再top查看cpu利用马上降到20%</p>
+<pre><code>PID USER      PR  NI    VIRT    RES    SHR S %CPU %MEM   TIME+ COMMAND     
+<span class="number">2273</span> root      <span class="number">20</span>   <span class="number">0</span>    <span class="number">2020</span>    <span class="number">280</span>   <span class="number">228</span> R <span class="number">19.6</span>  <span class="number">0.1</span>   <span class="number">0</span>:<span class="number">32.43</span> deadloop
+</code></pre><ul>
+<li><strong>内存限制</strong></li>
+</ul>
+<p>同样我们写一个不断分配内存的死循环：</p>
+<pre><code><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span>
+<span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span>
+<span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span>
+<span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span>
+<span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span>
+
+<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span>
+</span>{
+    <span class="keyword">int</span> size = <span class="number">0</span>;
+    <span class="keyword">int</span> chunk_size = <span class="number">512</span>;
+    <span class="keyword">void</span> *p = <span class="literal">NULL</span>;
+
+    <span class="keyword">while</span>(<span class="number">1</span>) {
+
+        <span class="keyword">if</span> ((p = <span class="built_in">malloc</span>(p, chunk_size)) == <span class="literal">NULL</span>) {
+            <span class="built_in">printf</span>(<span class="string">"out of memory!!\n"</span>);
+            <span class="keyword">break</span>;
+        }
+        <span class="built_in">memset</span>(p, <span class="number">1</span>, chunk_size);
+        size += chunk_size;
+        <span class="built_in">printf</span>(<span class="string">"[%d] - memory is allocated [%8d] bytes \n"</span>, getpid(), size);
+        sleep(<span class="number">1</span>);
+    }
+    <span class="keyword">return</span> <span class="number">0</span>;
+}
+</code></pre><p>然后利用CGroup进行限制：</p>
+<pre><code><span class="variable">$ </span>mkdir /sys/fs/cgroup/memory/test
+<span class="variable">$ </span>echo <span class="number">64</span>k &gt; <span class="regexp">/sys/fs</span><span class="regexp">/cgroup/memory</span><span class="regexp">/test/memory</span>.limit_in_bytes
+<span class="variable">$ </span>echo pid &gt; <span class="regexp">/sys/fs</span><span class="regexp">/cgroup/memory</span><span class="regexp">/haoel/tasks</span>
+</code></pre><p>一会就能看到上面的进程因为内存分配问题被kill掉。</p>
+<p>除了cpu和memory以外还有blkio-为​​​块​​​设​​​备​​​设​​​定​​​输​​​入​​​/输​​​出​​​限​​​制​​​，比​​​如​​​物​​​理​​​设​​​备​​​（磁​​​盘​​​，固​​​态​​​硬​​​盘​​​，USB 等​​​等​​​），cpuset- cgroup 中​​​的​​​任​​​务​​​分​​​配​​​独​​​立​​​ CPU（在​​​多​​​核​​​系​​​统​​​）和​​​内​​​存​​​节​​​点,devices-允​​​许​​​或​​​者​​​拒​​​绝​​​ cgroup 中​​​的​​​任​​​务​​​访​​​问​​​设​​​备,freezer-挂​​​起​​​或​​​者​​​恢​​​复​​​ cgroup 中​​​的​​​任​​​务，还有net_cls、net_prio等等，想具体了解可以网上查阅相关资料。</p>
+<p>参考：1.<a href="http://coolshell.cn/articles/17049.html" target="_blank" rel="external">http://coolshell.cn/articles/17049.html</a><br>2.<a href="http://xiezhenye.com/2013/10/%E7%94%A8-cgroups-%E7%AE%A1%E7%90%86-cpu-%E8%B5%84%E6%BA%90.html" target="_blank" rel="external">http://xiezhenye.com/2013/10/%E7%94%A8-cgroups-%E7%AE%A1%E7%90%86-cpu-%E8%B5%84%E6%BA%90.html</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="externa]]>
+    </summary>
+    
+      <category term="linux CGroup" scheme="http://yoursite.com/tags/linux-CGroup/"/>
+    
+      <category term="tech" scheme="http://yoursite.com/categories/tech/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[LVS集群体系架构]]></title>
