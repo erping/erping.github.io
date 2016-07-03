@@ -4,7 +4,7 @@
   <subtitle><![CDATA[成长之路]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2016-06-05T12:08:52.000Z</updated>
+  <updated>2016-07-03T14:25:44.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,48 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[科学上网]]></title>
+    <link href="http://yoursite.com/2016/07/03/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
+    <id>http://yoursite.com/2016/07/03/科学上网/</id>
+    <published>2016-07-03T14:24:32.000Z</published>
+    <updated>2016-07-03T14:25:44.000Z</updated>
+    <content type="html"><![CDATA[<p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="external">喝咖啡</a></strong></p>
+<p>不能互联的网络还能叫互联网么，所以有人说我们不过是在一个大的局域网里罢了。不过局域网里东西逐渐丰富起来以后，很多人就满足了，丧失了探索之心，可谓夏虫不可语冰，悲哉。有的人倒是爱折腾，但是在受管制的网络环境里根本搜不到相关文章，就好像一个在围城里的人想出去，可是要出城的钥匙却放在城外一样。闲话少叙，今天就简单介绍一下如何搭一个出城的梯子。</p>
+<p>目前比较好的方案是利用shadowsocks，但是前提是需要一个国外的vps，没有的话需要自己查询去购买。在Ubuntu下安装ss很方便，只需要3条命令：</p>
+<pre><code>apt-get <span class="operator"><span class="keyword">update</span>
+apt-<span class="keyword">get</span> <span class="keyword">install</span> python-pip
+pip <span class="keyword">install</span> shadowsocks</span>
+</code></pre><p>上述命令最好在root权限下输入，如果执行完毕并且没有报错的话，安装就算是成功了，接下来就是配置文件了。</p>
+<p>在/etc目录下写一个名为shadowsocks.json的文件，里面内容如下：</p>
+<pre><code>{
+"<span class="attribute">server</span>":<span class="value"><span class="string">"0.0.0.0"</span></span>,
+"<span class="attribute">server_port</span>":<span class="value"><span class="number">8388</span></span>,
+"<span class="attribute">local_address</span>": <span class="value"><span class="string">"127.0.0.1"</span></span>,
+"<span class="attribute">local_port</span>":<span class="value"><span class="number">1080</span></span>,
+"<span class="attribute">password</span>":<span class="value"><span class="string">"mypassword"</span></span>,
+"<span class="attribute">timeout</span>":<span class="value"><span class="number">300</span></span>,
+"<span class="attribute">method</span>":<span class="value"><span class="string">"aes-256-cfb"</span></span>,
+"<span class="attribute">fast_open</span>": <span class="value"><span class="literal">false</span>
+</span>}
+</code></pre><p>需要注意的一点就是server对应的值，很多教程里写的是server的ip，但是我那样却报错了，查到资料说改为0.0.0.0,如果你的vps支持ipv6，这里可以改为两个冒号::表示支持双栈协议，很多大学里可以用ipv6并且一般是不收网费的，这样你就可以利用ss上网不花钱啦。</p>
+<p>配置文件写完以后需要运行起来，很简单一条命令：</p>
+<pre><code>ssserver -c /etc/shadowsocks<span class="class">.json</span> -d start
+</code></pre><p>如果你想服务器开机自动启动ss，需要把这条命令写入/etc/rc.local文件最后一行就行，至此服务器这边算是完成了。</p>
+<p>在linux下客户端跟服务器差不多，也需要前面的下载ss，配置文件里不同的一点就是server对应的值为vps的ip地址，然后启动命令为</p>
+<pre><code>sslocal -c <span class="regexp">/etc/</span>shadowsocks.json
+</code></pre><p>windos下有GUI的客户端，可以在这<a href="http://pan.baidu.com/s/1mhWTTag" title="下载" target="_blank" rel="external">下载</a>，然后下载chrome浏览器插件switchsharp，做简单配置即可。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="externa]]>
+    </summary>
+    
+      <category term="shadowsocks" scheme="http://yoursite.com/tags/shadowsocks/"/>
+    
+      <category term="tech" scheme="http://yoursite.com/categories/tech/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Linux CGroup]]></title>

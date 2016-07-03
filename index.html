@@ -263,6 +263,133 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/03/科学上网/" itemprop="url">
+                  科学上网
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-07-03T22:24:32+08:00" content="2016-07-03">
+              2016-07-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">tech</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/03/科学上网/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/03/科学上网/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="external">喝咖啡</a></strong></p>
+<p>不能互联的网络还能叫互联网么，所以有人说我们不过是在一个大的局域网里罢了。不过局域网里东西逐渐丰富起来以后，很多人就满足了，丧失了探索之心，可谓夏虫不可语冰，悲哉。有的人倒是爱折腾，但是在受管制的网络环境里根本搜不到相关文章，就好像一个在围城里的人想出去，可是要出城的钥匙却放在城外一样。闲话少叙，今天就简单介绍一下如何搭一个出城的梯子。</p>
+<p>目前比较好的方案是利用shadowsocks，但是前提是需要一个国外的vps，没有的话需要自己查询去购买。在Ubuntu下安装ss很方便，只需要3条命令：</p>
+<pre><code>apt-get <span class="operator"><span class="keyword">update</span>
+apt-<span class="keyword">get</span> <span class="keyword">install</span> python-pip
+pip <span class="keyword">install</span> shadowsocks</span>
+</code></pre><p>上述命令最好在root权限下输入，如果执行完毕并且没有报错的话，安装就算是成功了，接下来就是配置文件了。</p>
+<p>在/etc目录下写一个名为shadowsocks.json的文件，里面内容如下：</p>
+<pre><code>{
+"<span class="attribute">server</span>":<span class="value"><span class="string">"0.0.0.0"</span></span>,
+"<span class="attribute">server_port</span>":<span class="value"><span class="number">8388</span></span>,
+"<span class="attribute">local_address</span>": <span class="value"><span class="string">"127.0.0.1"</span></span>,
+"<span class="attribute">local_port</span>":<span class="value"><span class="number">1080</span></span>,
+"<span class="attribute">password</span>":<span class="value"><span class="string">"mypassword"</span></span>,
+"<span class="attribute">timeout</span>":<span class="value"><span class="number">300</span></span>,
+"<span class="attribute">method</span>":<span class="value"><span class="string">"aes-256-cfb"</span></span>,
+"<span class="attribute">fast_open</span>": <span class="value"><span class="literal">false</span>
+</span>}
+</code></pre><p>需要注意的一点就是server对应的值，很多教程里写的是server的ip，但是我那样却报错了，查到资料说改为0.0.0.0,如果你的vps支持ipv6，这里可以改为两个冒号::表示支持双栈协议，很多大学里可以用ipv6并且一般是不收网费的，这样你就可以利用ss上网不花钱啦。</p>
+<p>配置文件写完以后需要运行起来，很简单一条命令：</p>
+<pre><code>ssserver -c /etc/shadowsocks<span class="class">.json</span> -d start
+</code></pre><p>如果你想服务器开机自动启动ss，需要把这条命令写入/etc/rc.local文件最后一行就行，至此服务器这边算是完成了。</p>
+<p>在linux下客户端跟服务器差不多，也需要前面的下载ss，配置文件里不同的一点就是server对应的值为vps的ip地址，然后启动命令为</p>
+<pre><code>sslocal -c <span class="regexp">/etc/</span>shadowsocks.json
+</code></pre><p>windos下有GUI的客户端，可以在这<a href="http://pan.baidu.com/s/1mhWTTag" title="下载" target="_blank" rel="external">下载</a>，然后下载chrome浏览器插件switchsharp，做简单配置即可。</p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/06/05/Linux-CGroup/" itemprop="url">
                   Linux CGroup
                 </a>
@@ -883,130 +1010,6 @@ spring<span class="variable">@ubuntu</span><span class="symbol">:~</span><span c
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/13/Bash快捷键/" itemprop="url">
-                  Bash快捷键
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2016-04-13T16:50:07+08:00" content="2016-04-13">
-              2016-04-13
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/tech/" itemprop="url" rel="index">
-                    <span itemprop="name">tech</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/13/Bash快捷键/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/13/Bash快捷键/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-              <p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="external">喝咖啡</a></strong></p>
-<p>当你输入了一长串的命令却发现开头有错误的时候，你会一直按&lt;-使光标移动过去么？当你忘记之前输入的命令的全称的时候你会先history然后执行么？少年，工欲善其事必先利其器，学习一些bash快捷键让你又cool又快。</p>
-<p>Ctrl-A 相当于HOME键，用于将光标定位到本行最前面</p>
-<p><strong>Ctrl-E 相当于End键，即将光标移动到本行末尾</strong></p>
-<p>Ctrl-B 相当于左箭头键，用于将光标向左移动一格</p>
-<p>Ctrl-F 相当于右箭头键，用于将光标向右移动一格</p>
-<p>Ctrl-D 相当于Del键，即删除光标所在处的字符</p>
-<p>Ctrl-K 用于删除从光标处开始到结尾处的所有字符</p>
-<p><strong>Ctrl-L 清屏，相当于clear命令</strong></p>
-<p><strong>Ctrl-R 进入历史命令查找状态，然后你输入几个关键字符，就可以找到你使用过的命令</strong></p>
-<p><strong>Ctrl-U 用于删除从光标开始到行首的所有字符。一般在密码或命令输入错误时常用</strong></p>
-<p>Ctrl-H 删除光标左侧的一个字符</p>
-<p>Ctrl-W 用于删除当前光标左侧的一个单词</p>
-<p><strong>Ctrl-P 相当于上箭头键，即显示上一个命令</strong></p>
-<p>Ctrl-N 相当于下箭头键，即显示下一个命令</p>
-<p>Ctrl-J 相当于回车键</p>
-<p>Alt-. 用于提取历史命令中的最后一个单词。你先执行history命令，然后再敲击此快捷键若干下，你就懂了！</p>
-<p>Alt-BackSpace 用于删除本行所有的内容，基本上和Ctrl-U类似。</p>
-<p>Alt-C 用于将当前光标处的字符变成大写，同时本光标所在单词的后续字符都变成小写。</p>
-<p>Alt-L 用于将光标所在单词及所在单词的后续字符都变成小写。</p>
-<p>Alt-U 用于将光标所在单词的光标所在处及之后的所有字符变成大写。</p>
-<p>黑体的是推荐的常用快捷键，多用几次很快就熟悉啦。人生又省出很多时间，可以进行思考了。</p>
-
-            
-          </span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -1053,7 +1056,7 @@ spring<span class="variable">@ubuntu</span><span class="symbol">:~</span><span c
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1067,7 +1070,7 @@ spring<span class="variable">@ubuntu</span><span class="symbol">:~</span><span c
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-count">18</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
