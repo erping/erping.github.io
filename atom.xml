@@ -4,7 +4,7 @@
   <subtitle><![CDATA[成长之路]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2016-07-03T14:25:44.000Z</updated>
+  <updated>2016-07-04T13:44:00.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[scrapy入门]]></title>
+    <link href="http://yoursite.com/2016/07/04/scrapy%E5%85%A5%E9%97%A8/"/>
+    <id>http://yoursite.com/2016/07/04/scrapy入门/</id>
+    <published>2016-07-04T13:42:41.000Z</published>
+    <updated>2016-07-04T13:44:00.000Z</updated>
+    <content type="html"><![CDATA[<p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="external">喝咖啡</a></strong></p>
+<p>scrapy是用python写的一个爬虫框架，可以很方便的抓取网上信息。今天我们就用它来爬取小米AppStore网站上的Android app信息，来简单介绍一下用法。</p>
+<p>首先新建一个Scrapy项目，我们cd到项目目录然后执行</p>
+<pre><code><span class="title">scrapy</span> startproject xiaomi_appstore_crawler
+</code></pre><p>就会在当前路径上生成一下目录结构（除了xiaomi_spider.py和那些pyc文件):</p>
+<p>这些文件分别是</p>
+<ul>
+<li>scrapy.cfg:项目配置文件</li>
+<li>items.py:项目items文件,数据容器</li>
+<li>pipelines.py:pipelines文件，用于离线处理</li>
+<li>settings.py：项目设置文件</li>
+<li>spiders/:放置spider代码目录</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="externa]]>
+    </summary>
+    
+      <category term="scrapy" scheme="http://yoursite.com/tags/scrapy/"/>
+    
+      <category term="tech" scheme="http://yoursite.com/categories/tech/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[科学上网]]></title>

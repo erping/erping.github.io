@@ -240,11 +240,157 @@
 
     
     
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/04/22/位图法/" itemprop="url">
+                  位图法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-04-22T21:10:51+08:00" content="2016-04-22">
+              2016-04-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">tech</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/22/位图法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/22/位图法/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
       
       
 
       
-    
+        
+          <span itemprop="articleBody">
+            
+              <p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="external">喝咖啡</a></strong></p>
+<ul>
+<li><strong>定义</strong></li>
+</ul>
+<p>位图就是bitmap，也就是用一个位来表示某种状态，特别适合数据规模很大，但是数据状态很少的情况。通常用来判断某个数是否存在于集合中。在STL中就有一个叫做bitset的容器，其实就是位图法，引用bitset的介绍：</p>
+<blockquote>
+<p><em>A bitset is a special container class that is designed to store bits (elements with only two possible values: 0 or 1,true or false, …).The class is very similar to a regular array, but optimizing for space allocation: each element occupies only one bit (which is eight times less than the smallest elemental type in C++: char).Each element (each bit) can be accessed individually: for example, for a given bitset named mybitset, the expression mybitset[3] accesses its fourth bit, just like a regular array accesses its elements.</em></p>
+</blockquote>
+<ul>
+<li><strong>数据结构</strong></li>
+</ul>
+<p>我们都知道一个字节有8个位，那么表示一个最大值小于等于15的集合用两个字节就可以。</p>
+<p><img src="http://7xp01p.com1.z0.glb.clouddn.com/bitmap1.jpg" alt=""></p>
+<p>如果将数组[2,10,3,6,14,0]存入上面的位图中，结果为（低位在右侧）</p>
+<p><img src="http://7xp01p.com1.z0.glb.clouddn.com/bitmap2.jpg" alt=""></p>
+<p>从上图可以清楚的看到存数据的时候只要把相应数据所在的位置1即可。</p>
+<ul>
+<li><strong>实际应用</strong></li>
+</ul>
+<p>一、排序</p>
+<p>输入：给定一个文件，里面最多含有n个不重复的正整数（也就是说可能含有少于n个不重复正整数），且其中每个数都小于等于n，n=10^7。 输出：得到按从小到大升序排列的包含所有输入的整数的列表。 条件：最多有大约1.5MB的内存空间可用，但磁盘空间足够.</p>
+<p>通过分析我们可以发现这个问题有其特殊性：</p>
+<ol>
+<li>输入数据限制在相对较小的范围内；</li>
+<li>数据没有重复；</li>
+<li>其中每条记录都是单一的整数，没有任何其他与之关联的数据。</li>
+</ol>
+<p>所以，可以用位图的方案分以下三部解决：</p>
+<ol>
+<li>根据数据规模创建位图，并将所有位置0；</li>
+<li>通过读入文件的每个整数建立集合，将每个数对应位置1；</li>
+<li>遍历创建好的集合，如果该位为1，就输出对应位代表的数字。</li>
+</ol>
+<p>伪代码如下表示：</p>
+<pre><code><span class="keyword">for</span> i = {0,....<span class="keyword">n</span>}
+    bit[i] = 0;
+<span class="keyword">for</span> each i <span class="keyword">in</span> the <span class="keyword">input</span> <span class="keyword">file</span>
+    bit[i] = 1;
+<span class="keyword">for</span> i = {0,....<span class="keyword">n</span>}
+    <span class="keyword">if</span> bit[i] == 1
+        write i <span class="keyword">on</span> the output <span class="keyword">file</span>
+</code></pre><p>二、查找</p>
+<p>问题：给40亿个不重复的unsigned int的整数，没排过序的，然后再给一个数，如何快速判断这个数是否在那40亿个数当中？</p>
+<p>40亿个数大约就是4G个数，按照位图每位存一个数的话，需要4G/8=512M的内存，读入这些数据，设置相应的bit位，读入要查询的数，在位图中查看相应位是否为1，为1表示存在，为0表示不存在。</p>
+<p>问题扩展：在2.5亿个整数中找出不重复的整数，注，内存不足以容纳这2.5亿个整数。</p>
+<p>一般来说位图适用于数据状态少的情况，1位的话只能表示存在与否，此问题要求的是找出不重复的数，1位就不够用了，所以需要扩展位图用2位来表示更多的状态（每个数分配2bit，00表示不存在，01表示出现一次，10表示出现多次，11无意义），这样需要2^32*2bit=1GB内存。然后扫描这2.5亿个整数，查看Bitmap中相对应位，如果是00变01，01变10，10保持不变。所描完事后，查看bitmap，把对应位是01的整数输出即可。</p>
+<p>位图就是一种用位置和状态来描述原来数据的压缩方法，在某些情况下能够用较小的空间/时间复杂度来解决问题，特别是大规模数据的时候。</p>
+<p>参考：[1].<a href="http://blog.csdn.net/wypblog/article/details/8237956" target="_blank" rel="external">http://blog.csdn.net/wypblog/article/details/8237956</a></p>
+<p>[2].<a href="http://the-art-of-programming-by-july.readthedocs.org/en/latest/ebook/zh/06.07/" target="_blank" rel="external">http://the-art-of-programming-by-july.readthedocs.org/en/latest/ebook/zh/06.07/</a></p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
 
     
       
@@ -371,6 +517,436 @@
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/03/02/Linux创建进程的方法/" itemprop="url">
+                  Linux创建进程的方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-03-02T22:51:00+08:00" content="2016-03-02">
+              2016-03-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">tech</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/02/Linux创建进程的方法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/02/Linux创建进程的方法/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="external">喝咖啡</a></strong></p>
+<p>在Linux中主要提供了fork、vfork、clone三种创建进程的方法。下面我们分别介绍他们的特点以及不同之处。</p>
+<p><strong>fork</strong></p>
+<p>创建进程最常用的就是fork，这样得到的子进程完全复制父进程的资源，仅有少量信息如task_struct结构和pid父子进程是不同的。但是比如文件描述符，打开的文件的读写位置指针等都是相同的。这样得到的子进程独立于父进程，具有良好的并发性，但是两者之间的通信需要专门的通信机制比如管道，共享内存。因为子进程存有父进程的资源副本，所以fork是一个开销很大的系统调用。有时候这样是很不必要的，比如fork出来的子进程仅仅是为了调用exec执行另外的程序，那么fork过程的复制将是一个多余的过程。现在的Linux采用了写时复制的技术，为了降低开销，fork最初并不会真正产生两个不同的拷贝，因为那个时候，大量的数据其实是一样的。写时复制推迟了真正的数据拷贝。若后来确实发生了写入，那那意味着parent和child的数据不一致了，于是产生复制动作，每个进程拿到属于自己的那一份，这样就可以降低系统调用的开销。所以有了写时复制后呢，vfork其实现意义就不大了(后面会讲到)。</p>
+<p>fork调用执行一次返回两个值，对于父进程，fork函数返回子程序的进程号，而对于子程序，fork函数则返回零，这就是一个函数返回两次的本质。 </p>
+<p>在fork之后，子进程和父进程都会继续执行fork调用之后的指令。子进程是父进程的副本。它将获得父进程的数据空间，堆和栈的副本，这些都是副本，父子进程并不共享这部分的内存。也就是说，子进程对父进程中的同名变量进行修改并不会影响其在父进程中的值。但是父子进程又共享一些东西，简单说来就是程序的正文段。正文段存放着由cpu执行的机器指令，通常是read-only的。</p>
+<p><strong>vfork</strong></p>
+<p>既然有了fork，为什么还会有vfork呢？看fork的man page我们就可以知道啦。</p>
+<p><em>In the bad old days a fork would require making a complete copy of the caller’s data space, often needlessly, since usually immediately afterwards an exec is done. Thus, for greater efficiency, BSD introduced the vfork system call, which did not fully copy the address space of the parent process, but borrowed the parent’s memory and thread of control until a call to execve or an exit occurred. The parent process was suspended while the child was using its resources. The use of vfork was tricky: for example, not modifying data in the parent process depended on knowing which variables are held in a register</em></p>
+<p>就是为了处理上文分析的fork后子进程马上exec一个外部程序使得复制没意义这样的问题，BSD提出了vfork，这样会使父子进程共享地址空间。这个时候如果子进程修改了某个变量，父进程也会做同样的修改。</p>
+<p>但此处有一点要注意的是用vfork创建的子进程必须显示调用exit()来结束，用return会挂掉，详细情况有兴趣的可以参考<a href="http://coolshell.cn/articles/12103.html" target="_blank" rel="external">这篇文章</a>。用 vfork创建子进程后，父进程会被阻塞直到子进程调用exec或exit，这也就是说vfork会保证子进程先运行，而fork的情况下两者是竞争关系，运行顺序无法得到保证。</p>
+<p><strong>clone</strong></p>
+<p>clone的函数原型<br>int clone(int (<em>fn)(void </em>), void <em>child_stack, int flags, void </em>arg);</p>
+<p>系统调用fork和vfork是无参数的，而clone则带有参数。fork是全部复制，vfork是共享内存，而clone是则可以将父进程资源有选择地复制给子进程，而没有复制的数据结构则通过指针的复制让子进程共享，具体要复制哪些资源给子进程，由参数列表中的 flags来决定。另外，clone返回的是子进程的pid。</p>
+<p>以上就是Linux下的几种创建进程的方式，vfork比较危险，如果不是特别关注性能不建议使用，clone提供了复杂的参数，可以实现对子进程较为精细的控制，在实践中应该根据自己需求选择合适的调用。</p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/01/30/linux常用命令/" itemprop="url">
+                  linux常用命令
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-01-30T11:06:24+08:00" content="2016-01-30">
+              2016-01-30
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">tech</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/01/30/linux常用命令/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/30/linux常用命令/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="external">喝咖啡</a></strong></p>
+<p>自己电脑以前用的就是Ubuntu的，虽然不怎么方便，但是命令用的熟啊。后来重装了Windows，命令逐渐生疏，今天就总结一下，算是温故知新。</p>
+<p> <strong>帮助命令</strong></p>
+<p>$<strong>man</strong> <em>command</em></p>
+<p>查询命令<em>command</em>的说明文档</p>
+<p>$<strong>info</strong> <em>command</em></p>
+<p>更加详细的说明文档</p>
+<p>$<strong>whatis</strong> <em>command</em></p>
+<p>简要说明</p>
+<p>$<strong>which</strong> <em>command</em></p>
+<p><em>command</em>的binary文件所在路径</p>
+<p>$<strong>whereis</strong> <em>command</em></p>
+<p>在搜索路径中的所有<em>command</em></p>
+<p> <strong>用户</strong></p>
+<p>$<strong>finger</strong> <em>username</em></p>
+<p>显示用户<em>username</em>的信息</p>
+<p>$<strong>who</strong></p>
+<p>显示当前登录的用户</p>
+<p>$<strong>passwd</strong></p>
+<p>更改密码</p>
+<p> <strong>SHELL（BASH）</strong></p>
+<p>$<strong>history</strong></p>
+<p>显示当前shell下的命令历史</p>
+<p>$<strong>!num</strong></p>
+<p>!加在<em>history</em>后的数字即为执行那条命令</p>
+<p>$<strong>alias</strong></p>
+<p>显示所有的命令别名</p>
+<p>$<strong>alias new_command=’command’</strong></p>
+<p>将command用newcommand代替</p>
+<p>$<strong>expr 1 + 1</strong></p>
+<p>数学计算，注意运算符前后的空格不可缺少</p>
+<p> <strong>文件系统</strong></p>
+<p>$<strong>du -sh dir</strong></p>
+<p>显示文件夹大小， -h 人类可读的单位， -s 摘要信息</p>
+<p>$<strong>find pathname -option [-print]<br> [-exec -ok command] {}  \</strong></p>
+<p>其中的option常用的有name,perm,mtime,size,depth,type等等，print就是打印找到的东西，exec和ok都是对找到的文件执行command的命令，区别在于ok会询问用户，{}指代了查找到的文件注意{}和\之间的空格。其实也可以用管道加xargs，效果同exec。</p>
+<p>$<strong>cd ~</strong></p>
+<p>回到主目录</p>
+<p>$<strong>cd -</strong></p>
+<p>回到上次操作的目录</p>
+<p>$<strong>df</strong></p>
+<p>检查文件系统磁盘空间占用情况</p>
+<p>$<strong>fdisk</strong></p>
+<p>对磁盘进行分区</p>
+<p> <strong>进程</strong></p>
+<p>$<strong>top</strong></p>
+<p>显示进程信息，并实时更新。包含的内容很多，有负载情况，内存、CPU的使用情况，swap，进程状态等等</p>
+<p>$<strong>ps</strong></p>
+<p>显示当前shell下的进程</p>
+<p>$<strong>kill PID</strong></p>
+<p>杀死PID进程</p>
+<p>$<strong>kill %job</strong></p>
+<p>杀死job工作</p>
+<p>$<strong>dmesg</strong></p>
+<p>显示系统日志</p>
+<p> <strong>网络</strong></p>
+<p>$<strong>ifconfig</strong></p>
+<p>显示网络接口以及ip地址</p>
+<p>$<strong>route</strong></p>
+<p>显示路由表，也可以用于修改路由表</p>
+<p>$<strong>netstat</strong></p>
+<p>显示当前网络连接状态</p>
+<p>$<strong>ping IP</strong></p>
+<p>发送ping包到地址ip</p>
+<p>$<strong>traceroute ip</strong></p>
+<p>探测到地址ip的路由路径</p>
+<p>$<strong>wget url</strong></p>
+<p>下载URL指向的资源</p>
+<p>上面的命令都是一些最简单的介绍，参数什么的都没有具体讲，学习最主要的是方法，知道一些命令的大概功能后，不懂的man一下就行了。让我们在linux的世界里愉快的玩耍吧。</p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/01/04/位运算/" itemprop="url">
+                  位运算
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-01-04T21:28:29+08:00" content="2016-01-04">
+              2016-01-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">tech</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/01/04/位运算/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/04/位运算/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="external">喝咖啡</a></strong></p>
+<p>在计算机中数字是以二进制存储运算的，除了加减乘除等代数运算，与非等逻辑关系运算用二进制也十分方便。平时习惯了十进制的，思维难免有所局限，有些问题合理利用位运算性质常常能够简单快速的解决。下面我就介绍一下位运算的常用性质以及相关问题。</p>
+<p><strong>1.判断奇偶性</strong></p>
+<p>要想判断一个数的奇偶性，我们恐怕第一反应就是将其除以2然后看起余数。<br>这样肯定是可以的，但是这是不是最快的呢？既然问了这个问题，那答案显然就不是啦。计算机里的二进制数据做除法是很复杂的，所以我们得转换一下思路。奇数偶数在二进制里特点很明显，最后一位如果是1那显然就是奇数，如果是0那就是偶数。于是问题转化为判断最后一位是0是1，这用一个运算速度很快的&amp;（与）操作就能完成。示例代码如下</p>
+<p>  int isOdd(int x)<br>{</p>
+<pre><code>int <span class="literal">a</span>=<span class="number">0</span>x01<span class="comment">;</span>
+
+<span class="keyword">return</span> (x&amp;<span class="literal">a</span>)<span class="comment">;</span>
+</code></pre><p>}</p>
+<p><strong>2.交换两个数</strong></p>
+<p>在排序算法中经常涉及到交换两个数a,b，这个也不难，引入一个中间变量即可。但是如果加入一个限制条件，不允许有中间变量，那怎么办呢？思索一下，有的人可能会想到这样做</p>
+<blockquote>
+<p>a = a + b; b = a - b; a = a - b;</p>
+</blockquote>
+<p>很好，上面的方法没有用到中间变量实现了两个数的交换。还有没有其他方法呢？不了解同或异或及其性质的童鞋恐怕就很难想出来了。</p>
+<p>同或，就是相同为1，不同为0，用符号表示就是</p>
+<blockquote>
+<p>1⊙1 = 1，0⊙0 = 1，0⊙1 = 0,1⊙0 = 0</p>
+</blockquote>
+<p>异或，就是不同为1，相同为0，用符号表示</p>
+<blockquote>
+<p>1⊕0 = 1，0⊕1 = 1, 0⊕0 = 0,1⊕1 = 0</p>
+</blockquote>
+<p>从上面的定义中我们可以推出一些基本性质，对于异或来说就是<strong>a⊕a=0, a⊕0=a</strong>,根据这两条性质我们就可以完成上面提出的问题。</p>
+<blockquote>
+<p>a = a⊕b; b = a⊕b; a = a⊕b;</p>
+</blockquote>
+<p>而且从形式上看，两种方法是极其相似的。</p>
+<p><strong>3.寻找奇数出现</strong></p>
+<p>标题说的不太清楚，这个问题是有一个整型数组A，其中只有一个数出现了奇数次，其他的数都出现了偶数次，找到这个数，要求时间复杂度为O(N)，额外空间复杂度为O(1)。</p>
+<p>看到这个偶数次脑海里是不是马上想起了a⊕a=0，恭喜你，解决问题的关键就在这。因为数组里只有一个数出现了奇数次，我们把所有数迭代做异或，那么出现偶数次的数异或结果为0(有点像消消乐，把那些成对的消掉了)，最后的结果就是0异或那个出现奇数次的数，根据性质a⊕0=a,所以最终迭代结果就是那个数。示例代码如下</p>
+<p>  int findOdd(vector<int> A, int n)</int></p>
+<p>{</p>
+<pre><code><span class="keyword">int</span> i;
+<span class="keyword">int</span> odd=<span class="number">0</span>;
+<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;n;i++)
+    odd ^= A[i];  <span class="comment">//a^a=0; a^0 = a</span>
+<span class="keyword">return</span> odd;
+</code></pre><p>}</p>
+<p>位运算用途广泛，除了上面几个方面还常用于清零，提取某些位，移位等等，因为直接操作位，一般速度很快，所以搜索引擎里也能看到其身影。下次遇到问题不妨先想一下位运算能不能解决呢。</p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
 
   </section>
 
@@ -417,7 +993,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-count">13</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -431,7 +1007,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-count">19</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
