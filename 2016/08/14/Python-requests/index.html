@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="NexT,blog,hexo," />
+  <meta name="keywords" content="requests," />
 
 
 
@@ -54,18 +54,30 @@
 
 
 <meta name="description" content="转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我喝咖啡
-很早以前就在自己的Todo List里加入了写博客一项，只是懒癌发作迟迟没有动手。最近闲来无事，便花了点时间折腾了一番。其实之前在vps上搭建了WordPress,但是感觉主题太丑，加功能什么的操作复杂，自己都不愿意访问，后来就搁浅了。这次决定在GitHub写了，然后看了看推荐比较多的hexo，逼格满满啊，马上就开始动手">
+在日常开发测试过程中，常常需要发送一些HTTP请求，Python的Requests模块正是为此而生，她使用简单但功能却十分强大，从基本的参数传递，响应解析到会话保持，设置代理应有尽有，不禁让人感叹：Life is short，use python.下面就简要介绍一些常用功能，以飨读者。
+
+发送请求
+
+最简单的功能就是发送">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo你的博客">
-<meta property="og:url" content="http://yoursite.com/2015/12/08/hexo-your-blog/index.html">
+<meta property="og:title" content="Python requests">
+<meta property="og:url" content="http://yoursite.com/2016/08/14/Python-requests/index.html">
 <meta property="og:site_name" content="薛定谔的喵">
 <meta property="og:description" content="转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我喝咖啡
-很早以前就在自己的Todo List里加入了写博客一项，只是懒癌发作迟迟没有动手。最近闲来无事，便花了点时间折腾了一番。其实之前在vps上搭建了WordPress,但是感觉主题太丑，加功能什么的操作复杂，自己都不愿意访问，后来就搁浅了。这次决定在GitHub写了，然后看了看推荐比较多的hexo，逼格满满啊，马上就开始动手">
-<meta property="og:updated_time" content="2015-12-08T07:43:58.000Z">
+在日常开发测试过程中，常常需要发送一些HTTP请求，Python的Requests模块正是为此而生，她使用简单但功能却十分强大，从基本的参数传递，响应解析到会话保持，设置代理应有尽有，不禁让人感叹：Life is short，use python.下面就简要介绍一些常用功能，以飨读者。
+
+发送请求
+
+最简单的功能就是发送">
+<meta property="og:updated_time" content="2016-08-14T13:58:08.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hexo你的博客">
+<meta name="twitter:title" content="Python requests">
 <meta name="twitter:description" content="转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我喝咖啡
-很早以前就在自己的Todo List里加入了写博客一项，只是懒癌发作迟迟没有动手。最近闲来无事，便花了点时间折腾了一番。其实之前在vps上搭建了WordPress,但是感觉主题太丑，加功能什么的操作复杂，自己都不愿意访问，后来就搁浅了。这次决定在GitHub写了，然后看了看推荐比较多的hexo，逼格满满啊，马上就开始动手">
+在日常开发测试过程中，常常需要发送一些HTTP请求，Python的Requests模块正是为此而生，她使用简单但功能却十分强大，从基本的参数传递，响应解析到会话保持，设置代理应有尽有，不禁让人感叹：Life is short，use python.下面就简要介绍一些常用功能，以飨读者。
+
+发送请求
+
+最简单的功能就是发送">
 
 
 
@@ -77,7 +89,7 @@
   };
 </script>
 
-  <title> hexo你的博客 | 薛定谔的喵 </title>
+  <title> Python requests | 薛定谔的喵 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -258,7 +270,7 @@
             
             
               
-                hexo你的博客
+                Python requests
               
             
           </h1>
@@ -267,8 +279,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-12-08T11:46:12+08:00" content="2015-12-08">
-              2015-12-08
+            <time itemprop="dateCreated" datetime="2016-08-14T21:56:43+08:00" content="2016-08-14">
+              2016-08-14
             </time>
           </span>
 
@@ -277,8 +289,8 @@
               &nbsp; | &nbsp; 分类于
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Essay/" itemprop="url" rel="index">
-                    <span itemprop="name">Essay</span>
+                  <a href="/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">tech</span>
                   </a>
                 </span>
 
@@ -293,8 +305,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/08/hexo-your-blog/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/08/hexo-your-blog/" itemprop="commentsCount"></span>
+                <a href="/2016/08/14/Python-requests/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/14/Python-requests/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -314,10 +326,46 @@
 
       
         <span itemprop="articleBody"><p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="external">喝咖啡</a></strong></p>
-<p>很早以前就在自己的Todo List里加入了写博客一项，只是懒癌发作迟迟没有动手。最近闲来无事，便花了点时间折腾了一番。其实之前在vps上搭建了WordPress,但是感觉主题太丑，加功能什么的操作复杂，自己都不愿意访问，后来就搁浅了。这次决定在GitHub写了，然后看了看推荐比较多的hexo，逼格满满啊，马上就开始动手了。于是就有了这篇处女博，大概记录一下过程，供人参考。</p>
-<p>为了贯彻落实不重复造轮子的理念（一个字，懒），我还是给一个链接吧，<a href="http://ibruce.info/2013/11/22/hexo-your-blog/" target="_blank" rel="external">hexo你的博客</a>,这篇博客详细的写了整个搭建过程，写的很好。我基本就是按照这个来的，大问题没有，中间出了点小问题就是本地搭建完成访问没问题，但是部署到GitHub上后没效果，纠结了一会上网查了以后发现是在配置文件里每个配置项的冒号：后要加一个空格才能写内容。我就是少了一个空格，所以一直没有把代码提交上去。关键是他还不报错，就算报错也不能精确定位，这也算是hexo的一个不足之处。不过瑕不掩瑜，hexo简约，大方，还是很方便滴。</p>
-<p>博客建完以后，爱折腾的人估计会对主题不太满意，没关系，开源社区里早就有人开发了多种主题供您挑选，满足个性化需求。<a href="http://www.zhihu.com/question/24422335" target="_blank" rel="external">好看的hexo主题</a>里面家顺张的回答里根据star数做了一个排名，多试一试总会找到符合心意的，顺便说一下从网站下面可以看到我的主题是Next。Next主题的安装配置<a href="http://theme-next.iissnan.com/" target="_blank" rel="external">在这里</a>。</p>
-<p>本来想写成一个一步步搭建hexo的博客，结果成了一个介绍别人搭建hexo博客的博客，/(ㄒoㄒ)/~~。</p>
+<p>在日常开发测试过程中，常常需要发送一些HTTP请求，Python的Requests模块正是为此而生，她使用简单但功能却十分强大，<br>从基本的参数传递，响应解析到会话保持，设置代理应有尽有，不禁让人感叹：Life is short，use python.下面就简要介绍一些<br>常用功能，以飨读者。</p>
+<ul>
+<li>发送请求</li>
+</ul>
+<p>最简单的功能就是发送http请求，只需要一行代码,得到的response赋值给r</p>
+<pre><code>r = requests.<span class="function"><span class="title">get</span><span class="params">(<span class="string">'http://www.google.com'</span>)</span></span>
+</code></pre><ul>
+<li>传递URL参数</li>
+</ul>
+<p>在url中传递参数一般是按照key/value的格式，跟在一个问号后面，如<a href="http://www.test.com/get?key=value，requests中用字典来表示参数，假如你想传递key1=value1,key2=value2到http://www.test.com/get，那么可以使用如下代码：" target="_blank" rel="external">http://www.test.com/get?key=value，requests中用字典来表示参数，假如你想传递key1=value1,key2=value2到http://www.test.com/get，那么可以使用如下代码：</a></p>
+<pre><code>para = {<span class="string">'key1'</span>:<span class="string">'value1'</span>,<span class="string">'key2'</span>:<span class="string">'value'</span>}
+r = requests.<span class="keyword">get</span>(<span class="string">'http://www.test.com/get'</span>,<span class="keyword">params</span> = para}
+</code></pre><ul>
+<li>传递POST参数</li>
+</ul>
+<p>跟传递URL参数类似，post数据可以存在字典中传给data参数,在发送请求时会自动编码为表单形式：</p>
+<pre><code><span class="operator"><span class="keyword">load</span> = {<span class="string">'key1'</span>:<span class="string">'value1'</span>,<span class="string">'key2'</span>:<span class="string">'value2'</span>}
+r = requests.post(<span class="keyword">url</span>,<span class="keyword">data</span> = <span class="keyword">load</span>)</span>
+</code></pre><p>对于接受JSON格式的POST数据：</p>
+<pre><code><span class="title">r</span> = requests.post(url,<span class="typedef"><span class="keyword">data</span> = json.dumps<span class="container">(<span class="title">load</span>)</span>)</span>
+</code></pre><p>如果你既需要传递POST参数也需要在URL中传参，很简单，将上面两者结合即可：</p>
+<pre><code><span class="title">r</span> = request.post(url,params = para,<span class="typedef"><span class="keyword">data</span> = json.dumps<span class="container">(<span class="title">load</span>)</span>)</span>
+</code></pre><p>是不是so easy?</p>
+<ul>
+<li>响应内容</li>
+</ul>
+<p>对于普通内容，可以直接print r.text,request已经自动处理了解压和编码的工作，对于JSON的内容，<br>requsets中有内置的JSON解析器，可以很方便的处理JSON数据：</p>
+<pre><code>url =  'http://ip.taobao.com/service/getIpInfo.php'
+para = {'ip':'8.8.8.8'}
+r = requests.get(url,params = para)
+print r.json()[<span class="link_label">'data'</span>][<span class="link_reference">'country'</span>].encode('utf-8')
+</code></pre><p>输出为美国</p>
+<ul>
+<li>定制头部</li>
+</ul>
+<p>有的网站会对头部的UA验证，如果判定是机器根本就不让访问，这时候我们就要修改请求头部的某些字段，还是老方法传个字典就行。</p>
+<pre><code><span class="setting">my_headers = <span class="value">{<span class="string">'User-Agent'</span>:<span class="string">'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 Safari/537.36'</span>,<span class="string">'Accept-Encoding'</span>:<span class="string">'gzip'</span>}</span></span>
+
+<span class="setting">r = <span class="value">requests.get(url,headers = my_headers)</span></span>
+</code></pre><p>requests库的宣言是 HTTP for Humans（给人用的HTTP库），我觉得是做到了，没什么是一行代码搞不定的，如果有，那就写两行。此篇仅是抛砖引玉，更多用法请参考官网。</p>
 </span>
       
     </div>
@@ -326,11 +374,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/NexT/" rel="tag">#NexT</a>
-          
-            <a href="/tags/blog/" rel="tag">#blog</a>
-          
-            <a href="/tags/hexo/" rel="tag">#hexo</a>
+            <a href="/tags/requests/" rel="tag">#requests</a>
           
         </div>
       
@@ -339,13 +383,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/07/04/scrapy入门/" rel="next" title="scrapy入门">
+                <i class="fa fa-chevron-left"></i> scrapy入门
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/12/08/about/" rel="prev" title="about">
-                about <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -372,8 +416,8 @@
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/12/08/hexo-your-blog/"
-           data-title="hexo你的博客" data-url="http://yoursite.com/2015/12/08/hexo-your-blog/">
+      <div class="ds-thread" data-thread-key="2016/08/14/Python-requests/"
+           data-title="Python requests" data-url="http://yoursite.com/2016/08/14/Python-requests/">
       </div>
     
   </div>

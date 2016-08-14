@@ -4,7 +4,7 @@
   <subtitle><![CDATA[成长之路]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2016-07-04T13:44:00.000Z</updated>
+  <updated>2016-08-14T13:58:08.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,64 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Python requests]]></title>
+    <link href="http://yoursite.com/2016/08/14/Python-requests/"/>
+    <id>http://yoursite.com/2016/08/14/Python-requests/</id>
+    <published>2016-08-14T13:56:43.000Z</published>
+    <updated>2016-08-14T13:58:08.000Z</updated>
+    <content type="html"><![CDATA[<p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="external">喝咖啡</a></strong></p>
+<p>在日常开发测试过程中，常常需要发送一些HTTP请求，Python的Requests模块正是为此而生，她使用简单但功能却十分强大，<br>从基本的参数传递，响应解析到会话保持，设置代理应有尽有，不禁让人感叹：Life is short，use python.下面就简要介绍一些<br>常用功能，以飨读者。</p>
+<ul>
+<li>发送请求</li>
+</ul>
+<p>最简单的功能就是发送http请求，只需要一行代码,得到的response赋值给r</p>
+<pre><code>r = requests.<span class="function"><span class="title">get</span><span class="params">(<span class="string">'http://www.google.com'</span>)</span></span>
+</code></pre><ul>
+<li>传递URL参数</li>
+</ul>
+<p>在url中传递参数一般是按照key/value的格式，跟在一个问号后面，如<a href="http://www.test.com/get?key=value，requests中用字典来表示参数，假如你想传递key1=value1,key2=value2到http://www.test.com/get，那么可以使用如下代码：" target="_blank" rel="external">http://www.test.com/get?key=value，requests中用字典来表示参数，假如你想传递key1=value1,key2=value2到http://www.test.com/get，那么可以使用如下代码：</a></p>
+<pre><code>para = {<span class="string">'key1'</span>:<span class="string">'value1'</span>,<span class="string">'key2'</span>:<span class="string">'value'</span>}
+r = requests.<span class="keyword">get</span>(<span class="string">'http://www.test.com/get'</span>,<span class="keyword">params</span> = para}
+</code></pre><ul>
+<li>传递POST参数</li>
+</ul>
+<p>跟传递URL参数类似，post数据可以存在字典中传给data参数,在发送请求时会自动编码为表单形式：</p>
+<pre><code><span class="operator"><span class="keyword">load</span> = {<span class="string">'key1'</span>:<span class="string">'value1'</span>,<span class="string">'key2'</span>:<span class="string">'value2'</span>}
+r = requests.post(<span class="keyword">url</span>,<span class="keyword">data</span> = <span class="keyword">load</span>)</span>
+</code></pre><p>对于接受JSON格式的POST数据：</p>
+<pre><code><span class="title">r</span> = requests.post(url,<span class="typedef"><span class="keyword">data</span> = json.dumps<span class="container">(<span class="title">load</span>)</span>)</span>
+</code></pre><p>如果你既需要传递POST参数也需要在URL中传参，很简单，将上面两者结合即可：</p>
+<pre><code><span class="title">r</span> = request.post(url,params = para,<span class="typedef"><span class="keyword">data</span> = json.dumps<span class="container">(<span class="title">load</span>)</span>)</span>
+</code></pre><p>是不是so easy?</p>
+<ul>
+<li>响应内容</li>
+</ul>
+<p>对于普通内容，可以直接print r.text,request已经自动处理了解压和编码的工作，对于JSON的内容，<br>requsets中有内置的JSON解析器，可以很方便的处理JSON数据：</p>
+<pre><code>url =  'http://ip.taobao.com/service/getIpInfo.php'
+para = {'ip':'8.8.8.8'}
+r = requests.get(url,params = para)
+print r.json()[<span class="link_label">'data'</span>][<span class="link_reference">'country'</span>].encode('utf-8')
+</code></pre><p>输出为美国</p>
+<ul>
+<li>定制头部</li>
+</ul>
+<p>有的网站会对头部的UA验证，如果判定是机器根本就不让访问，这时候我们就要修改请求头部的某些字段，还是老方法传个字典就行。</p>
+<pre><code><span class="setting">my_headers = <span class="value">{<span class="string">'User-Agent'</span>:<span class="string">'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 Safari/537.36'</span>,<span class="string">'Accept-Encoding'</span>:<span class="string">'gzip'</span>}</span></span>
+
+<span class="setting">r = <span class="value">requests.get(url,headers = my_headers)</span></span>
+</code></pre><p>requests库的宣言是 HTTP for Humans（给人用的HTTP库），我觉得是做到了，没什么是一行代码搞不定的，如果有，那就写两行。此篇仅是抛砖引玉，更多用法请参考官网。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><strong>转载请注明作者及出处，如果你觉得这篇文章对你有帮助或启发，也可以来请我<a href="http://7xp01p.com1.z0.glb.clouddn.com/1449296258436.jpg" target="_blank" rel="externa]]>
+    </summary>
+    
+      <category term="requests" scheme="http://yoursite.com/tags/requests/"/>
+    
+      <category term="tech" scheme="http://yoursite.com/categories/tech/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[scrapy入门]]></title>

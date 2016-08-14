@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2016/08/14/Python-requests/</loc>
+    <lastmod>2016-08-14T13:58:08.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2016/07/04/scrapy%E5%85%A5%E9%97%A8/</loc>
     <lastmod>2016-07-04T13:44:00.000Z</lastmod>
   </url>
